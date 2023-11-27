@@ -3,6 +3,7 @@ import { BsMoon, BsSun } from "react-icons/bs";
 import { TfiAlignRight, TfiAlignLeft } from "react-icons/tfi";
 import { Link, useLocation } from "react-router-dom";
 import { useGetAuthorQuery } from "../../__generated__/graphql";
+import { useColorContext } from "../../contexts/ColorContext";
 
 type HeaderProps = {};
 
@@ -10,32 +11,16 @@ export const Header: React.FC<HeaderProps> = ({}) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
-  const [headerBorderClass, setHeaderBorderClass] = useState('border-b-orange-200');
+  const { color } = useColorContext();
   const { data, loading, error } = useGetAuthorQuery({
     variables: {
       id: "clpe6ucn25yvp0a15hvmul45j",
     },
   });
 
-  useEffect(() => {
-    switch (location.pathname) {
-      case '/':
-        setHeaderBorderClass('border-b-orange-200');
-        break;
-      case '/about':
-        setHeaderBorderClass('border-b-blue-200');
-        break;
-      case '/tags':
-        setHeaderBorderClass('border-b-green-200');
-        break;
-      default:
-        setHeaderBorderClass('border-b-orange-200');
-    }
-  }, [location]);
-
   return (
     <>
-      <header className={`px-6 py-6 bg-white z-50 text-xl ${headerBorderClass} border-b-4 sm:border-none`}>
+      <header className={`px-6 py-6 bg-white z-50 text-xl border-b-${color}-200 border-b-4 sm:border-none`}>
         <div className="flex justify-between">
           <div>
             <Link

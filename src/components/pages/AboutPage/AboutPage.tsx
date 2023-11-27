@@ -1,10 +1,12 @@
 import React from "react";
 import { Layout } from "../../Layout";
 import { useGetAuthorQuery } from "../../../__generated__/graphql";
+import { useColorContext } from "../../../contexts/ColorContext";
 
 type AboutProps = {};
 
 export const AboutPage: React.FC<AboutProps> = ({}) => {
+  const { color } = useColorContext();
   const { data, loading, error } = useGetAuthorQuery({
     variables: {
       id: "clpe6ucn25yvp0a15hvmul45j",
@@ -22,7 +24,7 @@ export const AboutPage: React.FC<AboutProps> = ({}) => {
             <img
               src={author?.photo?.url}
               alt=""
-              className="rounded-full w-48 h-48 object-cover mt-8 shadow-blue-200 shadow-lg"
+              className={`rounded-full w-48 h-48 object-cover mt-8 shadow-${color}-200 shadow-lg`}
             />
             <p className="mt-8">{author?.bio}</p>
           </div>

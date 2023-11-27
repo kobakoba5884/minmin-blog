@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AboutPage } from "./components/pages/AboutPage";
 import { NotFoundPage } from "./components/pages/NotFoundPage";
 import { TagsPage } from "./components/pages/TagsPage/TagsPage";
+import { ColorProvider } from "./contexts/ColorContext";
 
 const apolloClient = new ApolloClient({
   uri: import.meta.env.VITE_HYGRAPH_ENDPOINT,
@@ -16,18 +17,20 @@ const apolloClient = new ApolloClient({
   },
 });
 
-console.log(import.meta.env.VITE_HYGRAPH_ENDPOINT)
+console.log(import.meta.env.VITE_HYGRAPH_ENDPOINT);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ApolloProvider client={apolloClient}>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<App />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/tags" element={<TagsPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
+        <ColorProvider>
+          <Routes>
+            <Route path="/" element={<App />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/tags" element={<TagsPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </ColorProvider>
       </BrowserRouter>
     </ApolloProvider>
   </React.StrictMode>
