@@ -17,15 +17,15 @@ export const AboutPage: React.FC<AboutProps> = ({}) => {
     <>
       <Layout>
         <div className="max-w-xl mx-auto p-7">
-          <article className="bg-white rounded p-5 flex flex-col items-center">
-            <p className="text-xl">{author?.name}</p>
+          <div className="bg-white rounded p-5 flex flex-col items-center">
+            <h2 className="text-xl">{author?.name}</h2>
             <img
               src={author?.photo?.url}
               alt=""
-              className="rounded-full w-32 h-32 object-cover mt-4"
+              className="rounded-full w-48 h-48 object-cover mt-8 shadow-blue-200 shadow-lg"
             />
-            <p className="mt-4">{author?.bio}</p>
-          </article>
+            <p className="mt-8">{author?.bio}</p>
+          </div>
         </div>
       </Layout>
     </>
