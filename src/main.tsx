@@ -16,6 +16,8 @@ const apolloClient = new ApolloClient({
   },
 });
 
+console.log(import.meta.env.VITE_HYGRAPH_ENDPOINT)
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ApolloProvider client={apolloClient}>
