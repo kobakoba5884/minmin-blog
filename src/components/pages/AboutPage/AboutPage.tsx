@@ -1,12 +1,14 @@
 import React from "react";
 import { Layout } from "../../Layout";
 import { useGetAuthorQuery } from "../../../__generated__/graphql";
-import { useColorContext } from "../../../contexts/ColorContext";
+import { getStyleForPath } from "../../../types/ColorStyles";
+import { useLocation } from "react-router-dom";
 
 type AboutProps = {};
 
 export const AboutPage: React.FC<AboutProps> = ({}) => {
-  const { color } = useColorContext();
+  const location = useLocation();
+  const shadowColor = getStyleForPath(location.pathname)["shadow"];
   const { data, loading, error } = useGetAuthorQuery({
     variables: {
       id: "clpe6ucn25yvp0a15hvmul45j",
@@ -19,12 +21,12 @@ export const AboutPage: React.FC<AboutProps> = ({}) => {
     <>
       <Layout>
         <div className="max-w-xl mx-auto p-7">
-          <div className="bg-white rounded p-5 flex flex-col items-center">
-            <h2 className="text-xl">{author?.name}</h2>
+          <div className="bg-white p-5 flex flex-col items-center">
+            <h2 className={`text-xl p-3`}>{author?.name}</h2>
             <img
               src={author?.photo?.url}
-              alt=""
-              className={`rounded-full w-48 h-48 object-cover mt-8 shadow-${color}-200 shadow-lg`}
+              alt="author photo"
+              className={`rounded-full w-48 h-48 object-cover mt-8 ${shadowColor} shadow-lg`}
             />
             <p className="mt-8">{author?.bio}</p>
           </div>

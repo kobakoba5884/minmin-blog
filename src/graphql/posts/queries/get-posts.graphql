@@ -1,0 +1,15 @@
+query GetPosts {
+  posts {
+    id
+    title
+    tags {
+      ... on Tag {
+        id
+        name
+      }
+    }
+    excerpt
+    createdAt
+    stage
+  }
+}

@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BsMoon, BsSun } from "react-icons/bs";
 import { TfiAlignRight, TfiAlignLeft } from "react-icons/tfi";
 import { Link, useLocation } from "react-router-dom";
-import { useGetAuthorQuery } from "../../__generated__/graphql";
-import { useColorContext } from "../../contexts/ColorContext";
+import { getStyleForPath } from "../../types/ColorStyles";
 
 type HeaderProps = {};
 
@@ -11,22 +10,17 @@ export const Header: React.FC<HeaderProps> = ({}) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
-  const { color } = useColorContext();
-  const { data, loading, error } = useGetAuthorQuery({
-    variables: {
-      id: "clpe6ucn25yvp0a15hvmul45j",
-    },
-  });
+
+  const borderColor = getStyleForPath(location.pathname)["border"];
 
   return (
     <>
-      <header className={`px-6 py-6 bg-white z-50 text-xl border-b-${color}-200 border-b-4 sm:border-none`}>
+      <header
+        className={`px-6 py-6 bg-white z-50 text-xl ${borderColor} border-b-4 sm:border-none`}
+      >
         <div className="flex justify-between">
           <div>
-            <Link
-              to="/"
-              className="text-slate-700 font-bold"
-            >
+            <Link to="/" className="text-slate-700 font-bold">
               Minmin Blog
             </Link>
           </div>
@@ -56,7 +50,7 @@ export const Header: React.FC<HeaderProps> = ({}) => {
         </div>
       </header>
       <div
-        className={`sm:hidden fixed top-20 right-0 opacity-90  h-full w-full z-30 shadow-md bg-white p-5 transition-transform duration-300 ${
+        className={`sm:hidden fixed top-20 right-0 opacity-90 h-full w-full z-30 shadow-md bg-white p-5 transition-transform duration-300 ${
           isMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
