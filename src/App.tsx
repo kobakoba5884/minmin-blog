@@ -1,7 +1,6 @@
 import { useState } from "react";
 import {
   Post,
-  useGetPostsLazyQuery,
   useGetPostsQuery,
 } from "./__generated__/graphql";
 import { InputField } from "./components/Elements/InputField";
