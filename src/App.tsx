@@ -1,4 +1,4 @@
-import { useGetPostsQuery } from "./__generated__/graphql";
+import { Post, useGetPostsQuery } from "./__generated__/graphql";
 import { InputField } from "./components/Elements/InputField";
 import { Layout } from "./components/Layout";
 import { PostListItem } from "./components/PostListItem";
@@ -6,8 +6,7 @@ import { PostListItem } from "./components/PostListItem";
 function App() {
   const { data, loading, error } = useGetPostsQuery();
 
-  console.log(data?.posts);
-  const posts = data?.posts;
+  console.log(data?.posts)
 
   return (
     <>
@@ -18,8 +17,8 @@ function App() {
             <InputField placeholder="search" />
           </div>
         </div>
-        {data?.posts.map((item) => (
-          <PostListItem key={item.id} postItem={item}/>
+        {data?.posts.map((postItem) => (
+          <PostListItem key={postItem.id} postItem={postItem as Partial<Post>} />
         ))}
       </Layout>
     </>

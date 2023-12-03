@@ -5135,7 +5135,7 @@ export type GetAuthorsQuery = { __typename?: 'Query', authors: Array<{ __typenam
 export type GetPostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetPostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, title: string, excerpt: string, createdAt: any, stage: Stage, tags: Array<{ __typename?: 'Tag', id: string, name: string }> }> };
+export type GetPostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, title: string, excerpt: string, createdAt: any, slug: string, tags: Array<{ __typename?: 'Tag', id: string, name: string }> }> };
 
 export type GetTagsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -5242,7 +5242,7 @@ export const GetPostsDocument = gql`
     }
     excerpt
     createdAt
-    stage
+    slug
   }
 }
     `;
