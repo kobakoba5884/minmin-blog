@@ -1,4 +1,4 @@
-query GetAuthor($id: ID!) {
+query GetAuthorById($id: ID!) {
   author(where: { id: $id }) {
     id
     name

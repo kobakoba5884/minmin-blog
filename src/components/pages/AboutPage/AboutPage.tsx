@@ -1,6 +1,6 @@
 import React from "react";
 import { Layout } from "../../Layout";
-import { useGetAuthorQuery } from "../../../__generated__/graphql";
+import { useGetAuthorByIdQuery } from "../../../__generated__/graphql";
 import { getStyleForPath } from "../../../types/ColorStyles";
 import { useLocation } from "react-router-dom";
 
@@ -9,7 +9,7 @@ type AboutProps = {};
 export const AboutPage: React.FC<AboutProps> = ({}) => {
   const location = useLocation();
   const shadowColor = getStyleForPath(location.pathname)["shadow"];
-  const { data, loading, error } = useGetAuthorQuery({
+  const { data, loading, error } = useGetAuthorByIdQuery({
     variables: {
       id: "clpe6ucn25yvp0a15hvmul45j",
     },

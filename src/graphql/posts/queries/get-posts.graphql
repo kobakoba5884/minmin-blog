@@ -1,15 +1,15 @@
 query GetPosts {
-  posts {
+  posts(orderBy: createdAt_DESC) {
     id
     title
+    excerpt
+    slug
+    createdAt
     tags {
       ... on Tag {
         id
         name
       }
     }
-    excerpt
-    createdAt
-    slug
   }
 }

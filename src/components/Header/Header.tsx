@@ -27,7 +27,7 @@ export const Header: React.FC<HeaderProps> = ({}) => {
           <nav className="font-semibold">
             <ul className="flex justify-end space-x-1">
               <li className="px-5 hidden sm:inline-block">
-                <Link to="/">blog</Link>
+                <Link to="/blog">blog</Link>
               </li>
               <li className="px-5 hidden sm:inline-block">
                 <Link to="/about">about</Link>
@@ -57,7 +57,7 @@ export const Header: React.FC<HeaderProps> = ({}) => {
         <nav>
           <ul className="flex flex-col space-y-6 text-4xl pl-10 text-slate-600 font-semibold">
             <li>
-              <Link to="/" onClick={() => setIsMenuOpen(false)}>
+              <Link to="/blog" onClick={() => setIsMenuOpen(false)}>
                 Blog
               </Link>
             </li>

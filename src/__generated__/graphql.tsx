@@ -2126,7 +2126,7 @@ export type PageInfo = {
 export type Post = Entity & Node & {
   __typename?: 'Post';
   author?: Maybe<Author>;
-  content: PostContentRichText;
+  content: Scalars['String']['output'];
   /** The time the document was created */
   createdAt: Scalars['DateTime']['output'];
   /** User that created this document */
@@ -2232,34 +2232,9 @@ export type PostConnection = {
   pageInfo: PageInfo;
 };
 
-export type PostContentRichText = {
-  __typename?: 'PostContentRichText';
-  /** Returns HTMl representation */
-  html: Scalars['String']['output'];
-  json: Scalars['RichTextAST']['output'];
-  /** Returns Markdown representation */
-  markdown: Scalars['String']['output'];
-  /** @deprecated Please use the 'json' field */
-  raw: Scalars['RichTextAST']['output'];
-  references: Array<PostContentRichTextEmbeddedTypes>;
-  /** Returns plain-text contents of RichText */
-  text: Scalars['String']['output'];
-};
-
-
-export type PostContentRichTextReferencesArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type PostContentRichTextEmbeddedTypes = Author;
-
 export type PostCreateInput = {
   author?: InputMaybe<AuthorCreateOneInlineInput>;
-  content: Scalars['RichTextAST']['input'];
+  content: Scalars['String']['input'];
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   excerpt: Scalars['String']['input'];
   slug: Scalars['String']['input'];
@@ -2302,6 +2277,25 @@ export type PostManyWhereInput = {
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']['input']>;
   author?: InputMaybe<AuthorWhereInput>;
+  content?: InputMaybe<Scalars['String']['input']>;
+  /** All values containing the given string. */
+  content_contains?: InputMaybe<Scalars['String']['input']>;
+  /** All values ending with the given string. */
+  content_ends_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values that are contained in given list. */
+  content_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  content_not?: InputMaybe<Scalars['String']['input']>;
+  /** All values not containing the given string. */
+  content_not_contains?: InputMaybe<Scalars['String']['input']>;
+  /** All values not ending with the given string */
+  content_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values that are not contained in given list. */
+  content_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** All values not starting with the given string. */
+  content_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values starting with the given string. */
+  content_starts_with?: InputMaybe<Scalars['String']['input']>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   /** All values greater than the given value. */
   createdAt_gt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -2439,6 +2433,8 @@ export type PostManyWhereInput = {
 };
 
 export enum PostOrderByInput {
+  ContentAsc = 'content_ASC',
+  ContentDesc = 'content_DESC',
   CreatedAtAsc = 'createdAt_ASC',
   CreatedAtDesc = 'createdAt_DESC',
   ExcerptAsc = 'excerpt_ASC',
@@ -2537,7 +2533,7 @@ export type PostTagsWhereUniqueInput = {
 
 export type PostUpdateInput = {
   author?: InputMaybe<AuthorUpdateOneInlineInput>;
-  content?: InputMaybe<Scalars['RichTextAST']['input']>;
+  content?: InputMaybe<Scalars['String']['input']>;
   excerpt?: InputMaybe<Scalars['String']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   tags?: InputMaybe<PostTagsUpdateManyInlineInput>;
@@ -2562,7 +2558,7 @@ export type PostUpdateManyInlineInput = {
 };
 
 export type PostUpdateManyInput = {
-  content?: InputMaybe<Scalars['RichTextAST']['input']>;
+  content?: InputMaybe<Scalars['String']['input']>;
   excerpt?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
 };
@@ -2627,6 +2623,25 @@ export type PostWhereInput = {
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']['input']>;
   author?: InputMaybe<AuthorWhereInput>;
+  content?: InputMaybe<Scalars['String']['input']>;
+  /** All values containing the given string. */
+  content_contains?: InputMaybe<Scalars['String']['input']>;
+  /** All values ending with the given string. */
+  content_ends_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values that are contained in given list. */
+  content_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  content_not?: InputMaybe<Scalars['String']['input']>;
+  /** All values not containing the given string. */
+  content_not_contains?: InputMaybe<Scalars['String']['input']>;
+  /** All values not ending with the given string */
+  content_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values that are not contained in given list. */
+  content_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** All values not starting with the given string. */
+  content_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values starting with the given string. */
+  content_starts_with?: InputMaybe<Scalars['String']['input']>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   /** All values greater than the given value. */
   createdAt_gt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -5120,22 +5135,29 @@ export enum _SystemDateTimeFieldVariation {
   Localization = 'localization'
 }
 
-export type GetAuthorQueryVariables = Exact<{
+export type GetAuthorByIdQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type GetAuthorQuery = { __typename?: 'Query', author?: { __typename?: 'Author', id: string, name: string, bio?: string | null, photo?: { __typename?: 'Asset', url: string } | null } | null };
+export type GetAuthorByIdQuery = { __typename?: 'Query', author?: { __typename?: 'Author', id: string, name: string, bio?: string | null, photo?: { __typename?: 'Asset', url: string } | null } | null };
 
 export type GetAuthorsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetAuthorsQuery = { __typename?: 'Query', authors: Array<{ __typename?: 'Author', id: string, name: string, bio?: string | null }> };
 
+export type GetPostBySlugQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type GetPostBySlugQuery = { __typename?: 'Query', post?: { __typename?: 'Post', createdAt: any, id: string, slug: string, title: string, content: string, author?: { __typename?: 'Author', id: string, name: string, photo?: { __typename?: 'Asset', url: string } | null } | null, tags: Array<{ __typename?: 'Tag', id: string, name: string }> } | null };
+
 export type GetPostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetPostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, title: string, excerpt: string, createdAt: any, slug: string, tags: Array<{ __typename?: 'Tag', id: string, name: string }> }> };
+export type GetPostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, title: string, excerpt: string, slug: string, createdAt: any, tags: Array<{ __typename?: 'Tag', id: string, name: string }> }> };
 
 export type GetTagsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -5143,8 +5165,8 @@ export type GetTagsQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetTagsQuery = { __typename?: 'Query', tags: Array<{ __typename?: 'Tag', id: string, name: string }> };
 
 
-export const GetAuthorDocument = gql`
-    query GetAuthor($id: ID!) {
+export const GetAuthorByIdDocument = gql`
+    query GetAuthorById($id: ID!) {
   author(where: {id: $id}) {
     id
     name
@@ -5157,37 +5179,37 @@ export const GetAuthorDocument = gql`
     `;
 
 /**
- * __useGetAuthorQuery__
+ * __useGetAuthorByIdQuery__
  *
- * To run a query within a React component, call `useGetAuthorQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAuthorQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetAuthorByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAuthorByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetAuthorQuery({
+ * const { data, loading, error } = useGetAuthorByIdQuery({
  *   variables: {
  *      id: // value for 'id'
  *   },
  * });
  */
-export function useGetAuthorQuery(baseOptions: Apollo.QueryHookOptions<GetAuthorQuery, GetAuthorQueryVariables>) {
+export function useGetAuthorByIdQuery(baseOptions: Apollo.QueryHookOptions<GetAuthorByIdQuery, GetAuthorByIdQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAuthorQuery, GetAuthorQueryVariables>(GetAuthorDocument, options);
+        return Apollo.useQuery<GetAuthorByIdQuery, GetAuthorByIdQueryVariables>(GetAuthorByIdDocument, options);
       }
-export function useGetAuthorLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAuthorQuery, GetAuthorQueryVariables>) {
+export function useGetAuthorByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAuthorByIdQuery, GetAuthorByIdQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAuthorQuery, GetAuthorQueryVariables>(GetAuthorDocument, options);
+          return Apollo.useLazyQuery<GetAuthorByIdQuery, GetAuthorByIdQueryVariables>(GetAuthorByIdDocument, options);
         }
-export function useGetAuthorSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetAuthorQuery, GetAuthorQueryVariables>) {
+export function useGetAuthorByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetAuthorByIdQuery, GetAuthorByIdQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetAuthorQuery, GetAuthorQueryVariables>(GetAuthorDocument, options);
+          return Apollo.useSuspenseQuery<GetAuthorByIdQuery, GetAuthorByIdQueryVariables>(GetAuthorByIdDocument, options);
         }
-export type GetAuthorQueryHookResult = ReturnType<typeof useGetAuthorQuery>;
-export type GetAuthorLazyQueryHookResult = ReturnType<typeof useGetAuthorLazyQuery>;
-export type GetAuthorSuspenseQueryHookResult = ReturnType<typeof useGetAuthorSuspenseQuery>;
-export type GetAuthorQueryResult = Apollo.QueryResult<GetAuthorQuery, GetAuthorQueryVariables>;
+export type GetAuthorByIdQueryHookResult = ReturnType<typeof useGetAuthorByIdQuery>;
+export type GetAuthorByIdLazyQueryHookResult = ReturnType<typeof useGetAuthorByIdLazyQuery>;
+export type GetAuthorByIdSuspenseQueryHookResult = ReturnType<typeof useGetAuthorByIdSuspenseQuery>;
+export type GetAuthorByIdQueryResult = Apollo.QueryResult<GetAuthorByIdQuery, GetAuthorByIdQueryVariables>;
 export const GetAuthorsDocument = gql`
     query GetAuthors {
   authors {
@@ -5229,20 +5251,77 @@ export type GetAuthorsQueryHookResult = ReturnType<typeof useGetAuthorsQuery>;
 export type GetAuthorsLazyQueryHookResult = ReturnType<typeof useGetAuthorsLazyQuery>;
 export type GetAuthorsSuspenseQueryHookResult = ReturnType<typeof useGetAuthorsSuspenseQuery>;
 export type GetAuthorsQueryResult = Apollo.QueryResult<GetAuthorsQuery, GetAuthorsQueryVariables>;
-export const GetPostsDocument = gql`
-    query GetPosts {
-  posts {
+export const GetPostBySlugDocument = gql`
+    query GetPostBySlug($slug: String!) {
+  post(where: {slug: $slug}) {
+    author {
+      id
+      name
+      photo {
+        url
+      }
+    }
+    createdAt
     id
-    title
+    slug
     tags {
       ... on Tag {
         id
         name
       }
     }
+    title
+    content
+  }
+}
+    `;
+
+/**
+ * __useGetPostBySlugQuery__
+ *
+ * To run a query within a React component, call `useGetPostBySlugQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostBySlugQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostBySlugQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useGetPostBySlugQuery(baseOptions: Apollo.QueryHookOptions<GetPostBySlugQuery, GetPostBySlugQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostBySlugQuery, GetPostBySlugQueryVariables>(GetPostBySlugDocument, options);
+      }
+export function useGetPostBySlugLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostBySlugQuery, GetPostBySlugQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostBySlugQuery, GetPostBySlugQueryVariables>(GetPostBySlugDocument, options);
+        }
+export function useGetPostBySlugSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetPostBySlugQuery, GetPostBySlugQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetPostBySlugQuery, GetPostBySlugQueryVariables>(GetPostBySlugDocument, options);
+        }
+export type GetPostBySlugQueryHookResult = ReturnType<typeof useGetPostBySlugQuery>;
+export type GetPostBySlugLazyQueryHookResult = ReturnType<typeof useGetPostBySlugLazyQuery>;
+export type GetPostBySlugSuspenseQueryHookResult = ReturnType<typeof useGetPostBySlugSuspenseQuery>;
+export type GetPostBySlugQueryResult = Apollo.QueryResult<GetPostBySlugQuery, GetPostBySlugQueryVariables>;
+export const GetPostsDocument = gql`
+    query GetPosts {
+  posts(orderBy: createdAt_DESC) {
+    id
+    title
     excerpt
-    createdAt
     slug
+    createdAt
+    tags {
+      ... on Tag {
+        id
+        name
+      }
+    }
   }
 }
     `;

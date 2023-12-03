@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AboutPage } from "./components/pages/AboutPage";
 import { NotFoundPage } from "./components/pages/NotFoundPage";
 import { TagsPage } from "./components/pages/TagsPage/TagsPage";
+import { BlogPage } from "./components/pages/BlogPage";
 
 const apolloClient = new ApolloClient({
   uri: import.meta.env.VITE_HYGRAPH_ENDPOINT,
@@ -24,6 +25,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <BrowserRouter>
           <Routes>
             <Route path="/" element={<App />} />
+            <Route path="/blog" element={<App />} />
+            <Route path="/blog/:slug" element={<BlogPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/tags" element={<TagsPage />} />
             <Route path="*" element={<NotFoundPage />} />
