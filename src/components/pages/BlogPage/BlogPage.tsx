@@ -1,17 +1,18 @@
 import React from "react";
 import { Layout } from "../../Layout";
-import { useGetPostBySlugQuery } from "../../../__generated__/graphql";
+import { Post, useGetPostBySlugQuery } from "../../../__generated__/graphql";
 import { Link, useLocation } from "react-router-dom";
 import { formatDate } from "../../../utils/formatDate";
 import ReactMarkdown from "react-markdown";
 import { getStyleForPath } from "../../../types/ColorStyles";
+import { AuthorCard } from "../../Cards/AuthorCard";
+import { TagsCard } from "../../Cards/TagsCard";
 
 type BlogPageProps = {};
 
 export const BlogPage: React.FC<BlogPageProps> = ({}) => {
   const location = useLocation();
   const borderColor = getStyleForPath(location.pathname)["border"];
-  const shadowColor = getStyleForPath(location.pathname)["shadow"];
   const textColor = getStyleForPath(location.pathname)["text"];
   const textHoverColor = getStyleForPath(location.pathname)["textHover"];
 
@@ -20,7 +21,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({}) => {
       slug: location.pathname.split("/").pop() || "",
     },
   });
-  const post = data?.post;
+  const post = data?.post as Post;
 
   return (
     <>
@@ -34,44 +35,20 @@ export const BlogPage: React.FC<BlogPageProps> = ({}) => {
           >
             {post?.title}
           </h1>
-          <div
-            className={`space-y-2 xl:grid xl:grid-cols-4`}
-          >
+          <div className={`space-y-2 xl:grid xl:grid-cols-4`}>
+            <div className="xl:col-span-3 p-5">
+              <ReactMarkdown>{data?.post?.content}</ReactMarkdown>
+            </div>
             <div className="xl:col-span-1">
-              <div className={`p-5 border-b-2 ${borderColor}`}>
-                <h2>Author</h2>
-                <div
-                  className={`xl:flex xl:justify-between xl:items-center py-2`}
-                >
-                  <img
-                    src={post?.author?.photo?.url}
-                    alt="author photo"
-                    className={`my-1 rounded-full w-10 h-10 object-cover ${shadowColor} shadow-lg`}
-                  />
-                  <h2 className="my-1">{post?.author?.name}</h2>
-                </div>
-              </div>
-              <div className={`p-5 mb-4 border-b-2 ${borderColor}`}>
-                <h2>Tags</h2>
-                {post?.tags?.map((tagItem) => (
-                  <Link
-                    to="#"
-                    key={tagItem?.id}
-                    className={`${textColor} ${textHoverColor} font-semibold pr-3`}
-                  >
-                    {tagItem?.name}
-                  </Link>
-                ))}
-              </div>
+              <AuthorCard postItem={post}/>
+              <TagsCard postItem={post} />
               <Link
                 to="/blog"
-                className={`${textColor} ${textHoverColor} font-semibold mb-2`}
+                className={`${textColor} ${textHoverColor} font-semibold`}
               >
                 &larr; Back to the blog
               </Link>
             </div>
-            <div className="xl:col-span-3 mx-2 px-3">{data?.post?.content}</div>
-            {/* <ReactMarkdown>{data?.post?.content}</ReactMarkdown> */}
           </div>
         </article>
       </Layout>
