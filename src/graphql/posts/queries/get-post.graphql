@@ -14,6 +14,7 @@ query GetPostBySlug($slug: String!) {
       ... on Tag {
         id
         name
+        slug
       }
     }
     title

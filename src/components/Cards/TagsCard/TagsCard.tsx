@@ -20,7 +20,7 @@ export const TagsCard: React.FC<TagsCardProps> = ({postItem}) => {
         <div className="flex flex-wrap">
           {postItem?.tags?.map((tagItem) => (
             <Link
-              to="#"
+              to={`/tags/${tagItem?.slug}`}
               key={tagItem?.id}
               className={`${textColor} ${textHoverColor} font-semibold pr-3`}
             >

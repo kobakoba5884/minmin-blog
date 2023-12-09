@@ -4204,6 +4204,7 @@ export type Tag = Entity & Node & {
   /** User that last published this document */
   publishedBy?: Maybe<User>;
   scheduledIn: Array<ScheduledOperation>;
+  slug: Scalars['String']['output'];
   /** System stage field */
   stage: Stage;
   /** The time the document was updated */
@@ -4289,6 +4290,7 @@ export type TagCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   name: Scalars['String']['input'];
   posts?: InputMaybe<PostCreateManyInlineInput>;
+  slug: Scalars['String']['input'];
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
@@ -4404,6 +4406,25 @@ export type TagManyWhereInput = {
   scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  /** All values containing the given string. */
+  slug_contains?: InputMaybe<Scalars['String']['input']>;
+  /** All values ending with the given string. */
+  slug_ends_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values that are contained in given list. */
+  slug_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  slug_not?: InputMaybe<Scalars['String']['input']>;
+  /** All values not containing the given string. */
+  slug_not_contains?: InputMaybe<Scalars['String']['input']>;
+  /** All values not ending with the given string */
+  slug_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values that are not contained in given list. */
+  slug_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** All values not starting with the given string. */
+  slug_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values starting with the given string. */
+  slug_starts_with?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
   /** All values greater than the given value. */
   updatedAt_gt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -4431,6 +4452,8 @@ export enum TagOrderByInput {
   NameDesc = 'name_DESC',
   PublishedAtAsc = 'publishedAt_ASC',
   PublishedAtDesc = 'publishedAt_DESC',
+  SlugAsc = 'slug_ASC',
+  SlugDesc = 'slug_DESC',
   UpdatedAtAsc = 'updatedAt_ASC',
   UpdatedAtDesc = 'updatedAt_DESC'
 }
@@ -4438,6 +4461,7 @@ export enum TagOrderByInput {
 export type TagUpdateInput = {
   name?: InputMaybe<Scalars['String']['input']>;
   posts?: InputMaybe<PostUpdateManyInlineInput>;
+  slug?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type TagUpdateManyInlineInput = {
@@ -4599,6 +4623,25 @@ export type TagWhereInput = {
   scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  /** All values containing the given string. */
+  slug_contains?: InputMaybe<Scalars['String']['input']>;
+  /** All values ending with the given string. */
+  slug_ends_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values that are contained in given list. */
+  slug_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  slug_not?: InputMaybe<Scalars['String']['input']>;
+  /** All values not containing the given string. */
+  slug_not_contains?: InputMaybe<Scalars['String']['input']>;
+  /** All values not ending with the given string */
+  slug_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values that are not contained in given list. */
+  slug_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** All values not starting with the given string. */
+  slug_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values starting with the given string. */
+  slug_starts_with?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
   /** All values greater than the given value. */
   updatedAt_gt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -4634,6 +4677,7 @@ export type TagWhereStageInput = {
 /** References Tag record uniquely */
 export type TagWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UnpublishLocaleInput = {
@@ -5152,17 +5196,24 @@ export type GetPostBySlugQueryVariables = Exact<{
 }>;
 
 
-export type GetPostBySlugQuery = { __typename?: 'Query', post?: { __typename?: 'Post', createdAt: any, id: string, slug: string, title: string, content: string, author?: { __typename?: 'Author', id: string, name: string, photo?: { __typename?: 'Asset', url: string } | null } | null, tags: Array<{ __typename?: 'Tag', id: string, name: string }> } | null };
+export type GetPostBySlugQuery = { __typename?: 'Query', post?: { __typename?: 'Post', createdAt: any, id: string, slug: string, title: string, content: string, author?: { __typename?: 'Author', id: string, name: string, photo?: { __typename?: 'Asset', url: string } | null } | null, tags: Array<{ __typename?: 'Tag', id: string, name: string, slug: string }> } | null };
 
 export type GetPostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetPostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, title: string, excerpt: string, slug: string, createdAt: any, tags: Array<{ __typename?: 'Tag', id: string, name: string }> }> };
+export type GetPostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, title: string, excerpt: string, slug: string, createdAt: any, tags: Array<{ __typename?: 'Tag', id: string, name: string, slug: string }> }> };
+
+export type GetPostsByTagSlugQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type GetPostsByTagSlugQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, title: string, excerpt: string, slug: string, createdAt: any, tags: Array<{ __typename?: 'Tag', id: string, name: string, slug: string }> }>, tag?: { __typename?: 'Tag', name: string } | null };
 
 export type GetTagsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetTagsQuery = { __typename?: 'Query', tags: Array<{ __typename?: 'Tag', id: string, name: string }> };
+export type GetTagsQuery = { __typename?: 'Query', tags: Array<{ __typename?: 'Tag', id: string, name: string, slug: string }> };
 
 
 export const GetAuthorByIdDocument = gql`
@@ -5268,6 +5319,7 @@ export const GetPostBySlugDocument = gql`
       ... on Tag {
         id
         name
+        slug
       }
     }
     title
@@ -5320,6 +5372,7 @@ export const GetPostsDocument = gql`
       ... on Tag {
         id
         name
+        slug
       }
     }
   }
@@ -5357,11 +5410,66 @@ export type GetPostsQueryHookResult = ReturnType<typeof useGetPostsQuery>;
 export type GetPostsLazyQueryHookResult = ReturnType<typeof useGetPostsLazyQuery>;
 export type GetPostsSuspenseQueryHookResult = ReturnType<typeof useGetPostsSuspenseQuery>;
 export type GetPostsQueryResult = Apollo.QueryResult<GetPostsQuery, GetPostsQueryVariables>;
+export const GetPostsByTagSlugDocument = gql`
+    query GetPostsByTagSlug($slug: String!) {
+  posts(orderBy: createdAt_DESC, where: {tags_some: {Tag: {slug: $slug}}}) {
+    id
+    title
+    excerpt
+    slug
+    createdAt
+    tags {
+      ... on Tag {
+        id
+        name
+        slug
+      }
+    }
+  }
+  tag(where: {slug: $slug}) {
+    name
+  }
+}
+    `;
+
+/**
+ * __useGetPostsByTagSlugQuery__
+ *
+ * To run a query within a React component, call `useGetPostsByTagSlugQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostsByTagSlugQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostsByTagSlugQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useGetPostsByTagSlugQuery(baseOptions: Apollo.QueryHookOptions<GetPostsByTagSlugQuery, GetPostsByTagSlugQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostsByTagSlugQuery, GetPostsByTagSlugQueryVariables>(GetPostsByTagSlugDocument, options);
+      }
+export function useGetPostsByTagSlugLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostsByTagSlugQuery, GetPostsByTagSlugQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostsByTagSlugQuery, GetPostsByTagSlugQueryVariables>(GetPostsByTagSlugDocument, options);
+        }
+export function useGetPostsByTagSlugSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetPostsByTagSlugQuery, GetPostsByTagSlugQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetPostsByTagSlugQuery, GetPostsByTagSlugQueryVariables>(GetPostsByTagSlugDocument, options);
+        }
+export type GetPostsByTagSlugQueryHookResult = ReturnType<typeof useGetPostsByTagSlugQuery>;
+export type GetPostsByTagSlugLazyQueryHookResult = ReturnType<typeof useGetPostsByTagSlugLazyQuery>;
+export type GetPostsByTagSlugSuspenseQueryHookResult = ReturnType<typeof useGetPostsByTagSlugSuspenseQuery>;
+export type GetPostsByTagSlugQueryResult = Apollo.QueryResult<GetPostsByTagSlugQuery, GetPostsByTagSlugQueryVariables>;
 export const GetTagsDocument = gql`
     query GetTags {
   tags {
     id
     name
+    slug
   }
 }
     `;

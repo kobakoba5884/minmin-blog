@@ -2,5 +2,6 @@ query GetTags {
   tags {
     id
     name
+    slug
   }
 }

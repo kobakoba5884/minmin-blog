@@ -8,6 +8,8 @@ import { AboutPage } from "./components/pages/AboutPage";
 import { NotFoundPage } from "./components/pages/NotFoundPage";
 import { TagsPage } from "./components/pages/TagsPage/TagsPage";
 import { BlogPage } from "./components/pages/BlogPage";
+import { AllPostListPage } from "./components/pages/AllPostListPage";
+import { PostListByTagPage } from "./components/pages/PostListByTagPage";
 
 const apolloClient = new ApolloClient({
   uri: import.meta.env.VITE_HYGRAPH_ENDPOINT,
@@ -25,10 +27,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <BrowserRouter>
           <Routes>
             <Route path="/" element={<App />} />
-            <Route path="/blog" element={<App />} />
+            <Route path="/blog" element={<AllPostListPage />} />
             <Route path="/blog/:slug" element={<BlogPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/tags" element={<TagsPage />} />
+            <Route path="/tags/:slug" element={<PostListByTagPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
       </BrowserRouter>

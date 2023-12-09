@@ -9,7 +9,31 @@ query GetPosts {
       ... on Tag {
         id
         name
+        slug
       }
     }
+  }
+}
+
+query GetPostsByTagSlug($slug: String!) {
+  posts(
+    orderBy: createdAt_DESC
+    where: { tags_some: { Tag: { slug: $slug } } }
+  ) {
+    id
+    title
+    excerpt
+    slug
+    createdAt
+    tags {
+      ... on Tag {
+        id
+        name
+        slug
+      }
+    }
+  }
+  tag(where: { slug: $slug }) {
+    name
   }
 }

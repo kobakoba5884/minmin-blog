@@ -31,7 +31,7 @@ export const PostListItem: React.FC<PostListItemProps> = ({ postItem }) => {
           <div className="flex flex-wrap mb-5">
             {postItem?.tags?.map((tagItem) => (
               <Link
-                to="#"
+                to={`/tags/${tagItem?.slug}`}
                 key={tagItem?.id}
                 className={`${textColor} ${textHoverColor} font-semibold pr-3`}
               >
