@@ -57,11 +57,11 @@ export const BlogPage: React.FC<BlogPageProps> = ({}) => {
                     return match ? (
                       <SyntaxHighlighter
                         remarkplugins={[remarkGfm]}
-                        {...rest}
+                        // {...rest}
                         PreTag="div"
                         children={String(children).replace(/\n$/, "")}
                         language={match[1]}
-                        // style={dark}
+                        style={dark}
                       />
                     ) : (
                       <code {...rest} className={className}>
