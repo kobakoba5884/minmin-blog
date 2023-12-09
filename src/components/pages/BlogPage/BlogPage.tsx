@@ -10,6 +10,7 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import {dark} from 'react-syntax-highlighter/dist/esm/styles/prism'
+import { useDarkModeContext } from "../../../contexts/DarkModeContext";
 
 type BlogPageProps = {};
 
@@ -19,6 +20,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({}) => {
   const borderColor = getStyleForPath(location.pathname)["border"];
   const textColor = getStyleForPath(location.pathname)["text"];
   const textHoverColor = getStyleForPath(location.pathname)["textHover"];
+  const { darkMode, setIsDarkMode } = useDarkModeContext();
 
   const { data, loading, error } = useGetPostBySlugQuery({
     variables: {
@@ -47,7 +49,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({}) => {
             {post?.title}
           </h1>
           <div className={`space-y-2 xl:grid xl:grid-cols-4`}>
-            <div className="xl:col-span-3 p-5">
+            <div className={`xl:col-span-3 p-5 xl:border-b-0 border-b-2 ${borderColor}`}>
               <Markdown
                 children={post?.content}
                 components={{
@@ -57,11 +59,10 @@ export const BlogPage: React.FC<BlogPageProps> = ({}) => {
                     return match ? (
                       <SyntaxHighlighter
                         remarkplugins={[remarkGfm]}
-                        // {...rest}
                         PreTag="div"
                         children={String(children).replace(/\n$/, "")}
                         language={match[1]}
-                        style={dark}
+                        style={darkMode ? dark : undefined}
                       />
                     ) : (
                       <code {...rest} className={className}>

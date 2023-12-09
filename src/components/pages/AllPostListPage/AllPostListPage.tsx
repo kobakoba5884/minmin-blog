@@ -3,12 +3,14 @@ import { Layout } from "../../Layout";
 import { InputField } from "../../Elements/InputField";
 import { PostListItem } from "../../PostListItem";
 import { Post, useGetPostsQuery } from "../../../__generated__/graphql";
+import { getStyleForPath } from "../../../types/ColorStyles";
 
 type AllPostListPageProps = {};
 
 export const AllPostListPage: React.FC<AllPostListPageProps> = ({}) => {
   const [searchTerm, setSearchTerm] = useState("");
   const { data, loading, error } = useGetPostsQuery();
+  const borderColor = getStyleForPath(location.pathname)["border"];
 
   const filteredPosts = searchTerm
     ? data?.posts?.filter(
@@ -29,8 +31,10 @@ export const AllPostListPage: React.FC<AllPostListPageProps> = ({}) => {
   return (
     <>
       <Layout>
-        <div className="max-w-2xl mx-auto p-5 mb-3">
-          <h2 className="mb-5 font-bold text-4xl">All Post</h2>
+      <div className={`space-y-2 pb-7 m-5 border-b-2 ${borderColor}`}>
+          <h2 className={`mb-5 text-slate-700 font-bold text-4xl py-2`}>
+            All Posts
+          </h2>
           <div>
             <InputField
               placeholder="search"

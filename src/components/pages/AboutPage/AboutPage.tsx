@@ -9,6 +9,7 @@ type AboutProps = {};
 export const AboutPage: React.FC<AboutProps> = ({}) => {
   const location = useLocation();
   const shadowColor = getStyleForPath(location.pathname)["shadow"];
+  const borderColor = getStyleForPath(location.pathname)["border"];
   const { data, loading, error } = useGetAuthorByIdQuery({
     variables: {
       id: "clpe6ucn25yvp0a15hvmul45j",
@@ -20,7 +21,8 @@ export const AboutPage: React.FC<AboutProps> = ({}) => {
   return (
     <>
       <Layout>
-        <div className="max-w-xl mx-auto p-7">
+        <div className="max-w-xl mx-auto pb-7 px-7">
+        <h2 className={`mb-5 text-slate-700 font-bold text-4xl py-7 border-b-2 ${borderColor}`}>About</h2>
           <div className="bg-white p-5 flex flex-col items-center">
             <h2 className={`text-xl p-3`}>{author?.name}</h2>
             <img

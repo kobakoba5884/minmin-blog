@@ -15,7 +15,7 @@ export const InputField: React.FC<InputFieldProps> = ({
       <input
         {...props}
         type="text"
-        className={`shadow-md border py-2 px-3 rounded-lg focus:outline-none w-full ${shadowColor} ${className}`}
+        className={`dark:bg-zinc-900 shadow-md border py-2 px-3 rounded-lg focus:outline-none w-full ${shadowColor} ${className}`}
       />
     </>
   );

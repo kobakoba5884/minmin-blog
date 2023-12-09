@@ -2,7 +2,6 @@ import React from "react";
 import { Post } from "../../__generated__/graphql";
 import { Link, useLocation } from "react-router-dom";
 import { getStyleForPath } from "../../types/ColorStyles";
-import { format, parseISO } from "date-fns";
 import { formatDate } from "../../utils/formatDate";
 
 type PostListItemProps = {
@@ -21,11 +20,11 @@ export const PostListItem: React.FC<PostListItemProps> = ({ postItem }) => {
       <article
         className={`space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0 border-b-2 ${borderColor} p-4 mx-5`}
       >
-        <div className="text-slate-500 xl:col-span-1">
+        <div className="dark:text-white text-slate-500 xl:col-span-1">
           {formatDate(postItem?.createdAt)}
         </div>
         <div className="xl:col-span-3">
-          <h2 className="font-bold text-slate-700 text-2xl mb-4 cursor-pointer">
+          <h2 className="font-bold dark:text-white text-slate-700 text-2xl mb-4 cursor-pointer">
             <Link to={pathToPost}>{postItem?.title}</Link>
           </h2>
           <div className="flex flex-wrap mb-5">
@@ -39,7 +38,7 @@ export const PostListItem: React.FC<PostListItemProps> = ({ postItem }) => {
               </Link>
             ))}
           </div>
-          <div className="mb-4">{postItem?.excerpt}</div>
+          <div className="mb-4 dark:text-white">{postItem?.excerpt}</div>
           <Link
             to={pathToPost}
             className={`${textColor} ${textHoverColor} font-semibold mb-2`}

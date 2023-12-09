@@ -10,9 +10,11 @@ type LayoutProps = {
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <>
-      <div className="flex flex-col h-screen bg-gray-150 md:px-3 max-w-5xl mx-auto min-w-[320px]">
+      <div
+        className={`flex flex-col h-screen dark:bg-zinc-900 md:px-3 max-w-5xl mx-auto min-w-[320px]`}
+      >
         <Header />
-        <main className="flex-grow">{children}</main>
+        <main className={`flex-grow dark:bg-zinc-900`}>{children}</main>
         <Footer />
         <Analytics />
       </div>
