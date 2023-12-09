@@ -14,7 +14,7 @@ export const PostListItem: React.FC<PostListItemProps> = ({ postItem }) => {
   const borderColor = getStyleForPath(location.pathname)["border"];
   const textColor = getStyleForPath(location.pathname)["text"];
   const textHoverColor = getStyleForPath(location.pathname)["textHover"];
-  const pathToPost = postItem?.slug ? `/blog/${postItem?.slug}` : "#";
+  const pathToPost = postItem?.slug ? `./blog/${postItem?.slug}` : "#";
 
   return (
     <>
