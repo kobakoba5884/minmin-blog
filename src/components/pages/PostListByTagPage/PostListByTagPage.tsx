@@ -7,6 +7,7 @@ import {
   useGetPostsByTagSlugQuery,
 } from "../../../__generated__/graphql";
 import { useLocation, useNavigate } from "react-router-dom";
+import { getStyleForPath } from "../../../types/ColorStyles";
 
 type PostListByTagPageProps = {};
 
@@ -14,6 +15,7 @@ export const PostListByTagPage: React.FC<PostListByTagPageProps> = ({}) => {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
+  const borderColor = getStyleForPath(location.pathname)["border"];
   const { data, loading, error } = useGetPostsByTagSlugQuery({
     variables: {
       slug: location.pathname.split("/").pop() || "",
@@ -44,8 +46,8 @@ export const PostListByTagPage: React.FC<PostListByTagPageProps> = ({}) => {
   return (
     <>
       <Layout>
-        <div className="max-w-2xl mx-auto p-5 mb-3">
-          <h2 className="mb-5 font-bold text-4xl">{tagName}</h2>
+        <div className={`space-y-2 pb-7 m-5 border-b-2 ${borderColor}`}>
+          <h2 className="dark:text-white mb-5 font-bold text-4xl">{tagName}</h2>
           <div>
             <InputField
               placeholder="search"

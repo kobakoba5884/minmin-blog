@@ -30,7 +30,6 @@ function App() {
 
   return (
     <>
-      <div className={`${darkMode ? 'dark': ''}`}>
         <Layout>
           <div className={`space-y-2 pb-7 m-5 border-b-2 ${borderColor}`}>
             <h2 className={`mb-5 dark:text-white text-slate-700 font-bold text-4xl py-2`}>
@@ -51,7 +50,6 @@ function App() {
             />
           ))}
         </Layout>
-      </div>
     </>
   );
 }

@@ -17,8 +17,8 @@ export const TagsPage: React.FC<TagsProps> = ({}) => {
     <>
       <Layout>
         <div className="max-w-xl mx-auto pb-7 px-7">
-        <h2 className={`mb-5 text-slate-700 font-bold text-4xl py-7 border-b-2 ${borderColor}`}>Tags</h2>
-          <div className="flex flex-wrap">
+        <h2 className={`mb-5 dark:text-white text-slate-700 font-bold text-4xl py-7 border-b-2 ${borderColor}`}>Tags</h2>
+          <div className="flex flex-wrap">  
             {data?.tags.map((tagItem) => (
               <div key={tagItem.name} className="flex flex-wrap">
                   <Link

@@ -40,15 +40,15 @@ export const BlogPage: React.FC<BlogPageProps> = ({}) => {
     <>
       <Layout>
         <article className="px-3">
-          <h2 className={`text-slate-500 text-center py-3`}>
+          <h2 className={`dark:text-white text-slate-500 text-center py-3`}>
             {formatDate(post?.createdAt)}
           </h2>
           <h1
-            className={`font-bold text-3xl text-center pb-3 border-b-2 ${borderColor}`}
+            className={`dark:text-white font-bold text-3xl text-center pb-3 border-b-2 ${borderColor}`}
           >
             {post?.title}
           </h1>
-          <div className={`space-y-2 xl:grid xl:grid-cols-4`}>
+          <div className={`dark:text-white space-y-2 xl:grid xl:grid-cols-4`}>
             <div className={`xl:col-span-3 p-5 xl:border-b-0 border-b-2 ${borderColor}`}>
               <Markdown
                 children={post?.content}

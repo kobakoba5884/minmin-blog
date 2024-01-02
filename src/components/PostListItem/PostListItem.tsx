@@ -27,7 +27,7 @@ export const PostListItem: React.FC<PostListItemProps> = ({ postItem }) => {
           <h2 className="font-bold dark:text-white text-slate-700 text-2xl mb-4 cursor-pointer">
             <Link to={pathToPost}>{postItem?.title}</Link>
           </h2>
-          <div className="flex flex-wrap mb-5">
+          <div className="flex flex-wrap mb-5 dark:bg-zinc-900">
             {postItem?.tags?.map((tagItem) => (
               <Link
                 to={`/tags/${tagItem?.slug}`}

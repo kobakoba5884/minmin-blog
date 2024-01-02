@@ -31,8 +31,8 @@ export const AllPostListPage: React.FC<AllPostListPageProps> = ({}) => {
   return (
     <>
       <Layout>
-      <div className={`space-y-2 pb-7 m-5 border-b-2 ${borderColor}`}>
-          <h2 className={`mb-5 text-slate-700 font-bold text-4xl py-2`}>
+      <div className={`space-y-2 pb-7 m-5 border-b-2 ${borderColor} dark:bg-zinc-900`}>
+          <h2 className={`mb-5 dark:text-white text-slate-700 font-bold text-4xl py-2`}>
             All Posts
           </h2>
           <div>

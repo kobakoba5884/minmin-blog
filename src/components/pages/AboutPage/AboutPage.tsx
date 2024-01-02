@@ -22,15 +22,15 @@ export const AboutPage: React.FC<AboutProps> = ({}) => {
     <>
       <Layout>
         <div className="max-w-xl mx-auto pb-7 px-7">
-        <h2 className={`mb-5 text-slate-700 font-bold text-4xl py-7 border-b-2 ${borderColor}`}>About</h2>
-          <div className="bg-white p-5 flex flex-col items-center">
-            <h2 className={`text-xl p-3`}>{author?.name}</h2>
+        <h2 className={`mb-5 dark:text-white text-slate-700 font-bold text-4xl py-7 border-b-2 ${borderColor}`}>About</h2>
+          <div className=" p-5 flex flex-col items-center">
+            <h2 className={`text-xl p-3 dark:text-white`}>{author?.name}</h2>
             <img
               src={author?.photo?.url}
               alt="author photo"
               className={`rounded-full w-48 h-48 object-cover mt-8 ${shadowColor} shadow-lg`}
             />
-            <p className="mt-8">{author?.bio}</p>
+            <p className="mt-8 dark:text-white">{author?.bio}</p>
           </div>
         </div>
       </Layout>

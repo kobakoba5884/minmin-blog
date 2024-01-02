@@ -17,7 +17,7 @@ export const Header: React.FC<HeaderProps> = ({}) => {
   return (
     <>
       <header
-        className={`px-6 py-6 dark:bg-zinc-900 bg-white z-50 text-xl ${borderColor} border-b-4 sm:border-none`}
+        className={`px-6 py-6 z-50 text-xl ${borderColor} border-b-4 sm:border-none`}
       >
         <div className="flex justify-between">
           <div>
@@ -68,13 +68,11 @@ export const Header: React.FC<HeaderProps> = ({}) => {
         </div>
       </header>
       <div
-        className={`sm:hidden fixed top-20 right-0 opacity-90 h-full w-full z-30 shadow-md ${
-          darkMode ? "bg-zinc-900" : "bg-white"
-        } p-5 transition-transform duration-300 ${
+        className={`sm:hidden fixed top-20 right-0 opacity-90 h-full w-full z-30 shadow-md dark:bg-zinc-900 bg-white p-5 transition-transform duration-300 ${
           isMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <nav>
+        <nav className="">
           <ul className="flex flex-col space-y-6 text-4xl pl-10 text-slate-600 font-semibold">
             <li>
               <Link to="/blog" className={`dark:text-white`} onClick={() => setIsMenuOpen(false)}>

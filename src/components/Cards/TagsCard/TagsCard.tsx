@@ -16,8 +16,8 @@ export const TagsCard: React.FC<TagsCardProps> = ({postItem}) => {
   return (
     <>
       <div className={`p-5 mb-4 border-b-2 ${borderColor}`}>
-        <h2>Tags</h2>
-        <div className="flex flex-wrap">
+        <h2 className="dark:text-white">Tags</h2>
+        <div className="flex flex-wrap dark:bg-zinc-900">
           {postItem?.tags?.map((tagItem) => (
             <Link
               to={`/tags/${tagItem?.slug}`}
