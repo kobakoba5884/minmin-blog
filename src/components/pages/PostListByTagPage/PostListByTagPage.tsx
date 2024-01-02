@@ -8,6 +8,7 @@ import {
 } from "../../../__generated__/graphql";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getStyleForPath } from "../../../types/ColorStyles";
+import { PageTitle } from "../../PageTitle";
 
 type PostListByTagPageProps = {};
 
@@ -46,22 +47,24 @@ export const PostListByTagPage: React.FC<PostListByTagPageProps> = ({}) => {
   return (
     <>
       <Layout>
-        <div className={`space-y-2 pb-7 m-5 border-b-2 ${borderColor}`}>
-          <h2 className="dark:text-white mb-5 font-bold text-4xl">{tagName}</h2>
-          <div>
-            <InputField
-              placeholder="search"
-              value={searchTerm}
-              onChange={handleSearch}
-            />
+        <div className="mx-5">
+          <div className={`p-7 border-b-2 ${borderColor}`}>
+            <PageTitle pageTitle={tagName as string} />
+            <div>
+              <InputField
+                placeholder="search"
+                value={searchTerm}
+                onChange={handleSearch}
+              />
+            </div>
           </div>
+          {filteredPosts?.map((postItem) => (
+            <PostListItem
+              key={postItem.id}
+              postItem={postItem as Partial<Post>}
+            />
+          ))}
         </div>
-        {filteredPosts?.map((postItem) => (
-          <PostListItem
-            key={postItem.id}
-            postItem={postItem as Partial<Post>}
-          />
-        ))}
       </Layout>
     </>
   );

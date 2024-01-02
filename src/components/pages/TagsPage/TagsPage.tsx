@@ -3,6 +3,7 @@ import { Layout } from "../../Layout";
 import { useGetTagsQuery } from "../../../__generated__/graphql";
 import { Link, useLocation } from "react-router-dom";
 import { getStyleForPath } from "../../../types/ColorStyles";
+import { PageTitle } from "../../PageTitle";
 
 type TagsProps = {};
 
@@ -16,19 +17,17 @@ export const TagsPage: React.FC<TagsProps> = ({}) => {
   return (
     <>
       <Layout>
-        <div className="max-w-xl mx-auto pb-7 px-7">
-        <h2 className={`mb-5 dark:text-white text-slate-700 font-bold text-4xl py-7 border-b-2 ${borderColor}`}>Tags</h2>
-          <div className="flex flex-wrap">  
+        <div className="p-7">
+          <PageTitle pageTitle="Tags" className={`pb-7 border-b-2 ${borderColor}`}/>
+          <div className="flex flex-wrap py-7">
             {data?.tags.map((tagItem) => (
-              <div key={tagItem.name} className="flex flex-wrap">
-                  <Link
-                    to={`/tags/${tagItem?.slug}`}
-                    key={tagItem?.id}
-                    className={`${textColor} ${textHoverColor} text-2xl font-semibold pr-5`}
-                  >
-                    {tagItem?.name}
-                  </Link>
-              </div>
+              <Link
+                to={`/tags/${tagItem?.slug}`}
+                key={tagItem?.id}
+                className={`${textColor} ${textHoverColor} text-2xl font-semibold mt-2 mb-2 mr-5`}
+              >
+                {tagItem?.name} ({tagItem?.posts?.length})
+              </Link>
             ))}
           </div>
         </div>

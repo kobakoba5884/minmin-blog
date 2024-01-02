@@ -4,6 +4,7 @@ import { InputField } from "../../Elements/InputField";
 import { PostListItem } from "../../PostListItem";
 import { Post, useGetPostsQuery } from "../../../__generated__/graphql";
 import { getStyleForPath } from "../../../types/ColorStyles";
+import { PageTitle } from "../../PageTitle";
 
 type AllPostListPageProps = {};
 
@@ -31,24 +32,24 @@ export const AllPostListPage: React.FC<AllPostListPageProps> = ({}) => {
   return (
     <>
       <Layout>
-      <div className={`space-y-2 pb-7 m-5 border-b-2 ${borderColor} dark:bg-zinc-900`}>
-          <h2 className={`mb-5 dark:text-white text-slate-700 font-bold text-4xl py-2`}>
-            All Posts
-          </h2>
-          <div>
-            <InputField
-              placeholder="search"
-              value={searchTerm}
-              onChange={handleSearch}
-            />
+        <div className="mx-5">
+          <div className={`p-7 border-b-2 ${borderColor}`}>
+            <PageTitle pageTitle="All Posts" />
+            <div>
+              <InputField
+                placeholder="search"
+                value={searchTerm}
+                onChange={handleSearch}
+              />
+            </div>
           </div>
+          {filteredPosts?.map((postItem) => (
+            <PostListItem
+              key={postItem.id}
+              postItem={postItem as Partial<Post>}
+            />
+          ))}
         </div>
-        {filteredPosts?.map((postItem) => (
-          <PostListItem
-            key={postItem.id}
-            postItem={postItem as Partial<Post>}
-          />
-        ))}
       </Layout>
     </>
   );

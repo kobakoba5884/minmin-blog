@@ -1,7 +1,10 @@
 query GetTags {
-  tags {
+  tags(orderBy: name_ASC) {
     id
     name
     slug
+    posts {
+      id
+    }
   }
 }

@@ -1339,6 +1339,7 @@ export enum EntityTypeName {
 export type EntityWhereInput = {
   /** The ID of an object */
   id: Scalars['ID']['input'];
+  locale?: InputMaybe<Locale>;
   stage: Stage;
   /** The Type name of an object */
   typename: EntityTypeName;
@@ -5213,7 +5214,7 @@ export type GetPostsByTagSlugQuery = { __typename?: 'Query', posts: Array<{ __ty
 export type GetTagsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetTagsQuery = { __typename?: 'Query', tags: Array<{ __typename?: 'Tag', id: string, name: string, slug: string }> };
+export type GetTagsQuery = { __typename?: 'Query', tags: Array<{ __typename?: 'Tag', id: string, name: string, slug: string, posts: Array<{ __typename?: 'Post', id: string }> }> };
 
 
 export const GetAuthorByIdDocument = gql`
@@ -5466,10 +5467,13 @@ export type GetPostsByTagSlugSuspenseQueryHookResult = ReturnType<typeof useGetP
 export type GetPostsByTagSlugQueryResult = Apollo.QueryResult<GetPostsByTagSlugQuery, GetPostsByTagSlugQueryVariables>;
 export const GetTagsDocument = gql`
     query GetTags {
-  tags {
+  tags(orderBy: name_ASC) {
     id
     name
     slug
+    posts {
+      id
+    }
   }
 }
     `;

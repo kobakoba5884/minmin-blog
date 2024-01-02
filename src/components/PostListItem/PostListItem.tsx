@@ -18,7 +18,7 @@ export const PostListItem: React.FC<PostListItemProps> = ({ postItem }) => {
   return (
     <>
       <article
-        className={`space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0 border-b-2 ${borderColor} p-4 mx-5`}
+        className={`space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0 border-b-2 ${borderColor} p-4`}
       >
         <div className="dark:text-white text-slate-500 xl:col-span-1">
           {formatDate(postItem?.createdAt)}

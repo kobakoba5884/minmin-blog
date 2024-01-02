@@ -5,6 +5,7 @@ import { Layout } from "./components/Layout";
 import { PostListItem } from "./components/PostListItem";
 import { getStyleForPath } from "./types/ColorStyles";
 import { useDarkModeContext } from "./contexts/DarkModeContext";
+import { PageTitle } from "./components/PageTitle";
 
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -30,11 +31,10 @@ function App() {
 
   return (
     <>
-        <Layout>
-          <div className={`pb-7 m-5 border-b-2 ${borderColor}`}>
-            <h2 className={`mb-5 dark:text-white text-slate-700 font-bold text-4xl py-2`}>
-              All Posts
-            </h2>
+      <Layout>
+        <div className="mx-5">
+          <div className={`p-7 border-b-2 ${borderColor}`}>
+            <PageTitle pageTitle="All Posts" />
             <div>
               <InputField
                 placeholder="search"
@@ -50,7 +50,8 @@ function App() {
               postItem={postItem as Partial<Post>}
             />
           ))}
-        </Layout>
+        </div>
+      </Layout>
     </>
   );
 }
