@@ -13,13 +13,11 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <div className={`${darkMode ? "dark" : ""}`}>
-      <div className={`dark:bg-zinc-900`}>
-        <div className={`h-screen flex flex-col md:px-3 max-w-5xl mx-auto`}>
-          <Header />
-          <main className={`flex-grow`}>{children}</main>
-          <Footer />
-          <Analytics />
-        </div>
+      <div className={`flex flex-col min-h-screen dark:bg-zinc-900 overflow-hidden`}>
+        <Header />
+        <main className={`flex-grow`}>{children}</main>
+        <Footer />
+        <Analytics />
       </div>
     </div>
   );

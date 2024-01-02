@@ -31,7 +31,7 @@ function App() {
   return (
     <>
         <Layout>
-          <div className={`space-y-2 pb-7 m-5 border-b-2 ${borderColor}`}>
+          <div className={`pb-7 m-5 border-b-2 ${borderColor}`}>
             <h2 className={`mb-5 dark:text-white text-slate-700 font-bold text-4xl py-2`}>
               All Posts
             </h2>
@@ -40,6 +40,7 @@ function App() {
                 placeholder="search"
                 value={searchTerm}
                 onChange={handleSearch}
+                className=""
               />
             </div>
           </div>

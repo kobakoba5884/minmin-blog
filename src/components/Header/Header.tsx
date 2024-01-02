@@ -17,50 +17,42 @@ export const Header: React.FC<HeaderProps> = ({}) => {
   return (
     <>
       <header
-        className={`px-6 py-6 z-50 text-xl ${borderColor} border-b-4 sm:border-none`}
+        className={`p-6 z-50 text-xl ${borderColor} border-b-4 sm:border-none font-semibold dark:text-white`}
       >
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center">
           <div>
             <Link
               to="/"
-              className={`dark:text-white text-slate-700 font-bold`}
+              className={`text-slate-700 font-bold hidden xs:inline-block dark:text-white`}
             >
               Minmin Blog
             </Link>
           </div>
-          <nav className="font-semibold">
-            <ul className={`flex justify-end space-x-1`}>
-              <li className="px-5 hidden sm:inline-block">
-                <Link to="/blog" className={`dark:text-white`}>
+          <nav className="">
+            <ul className={`flex justify-end space-x-7`}>
+              <li className="">
+                <Link to="/blog" className={`hidden sm:inline-block`}>
                   blog
                 </Link>
               </li>
-              <li className="px-5 hidden sm:inline-block">
-                <Link to="/about" className={`dark:text-white`}>
+              <li className="">
+                <Link to="/about" className={`hidden sm:inline-block`}>
                   about
                 </Link>
               </li>
-              <li className="px-5 hidden sm:inline-block">
-                <Link to="/tags" className={`dark:text-white`}>
+              <li className="">
+                <Link to="/tags" className={`hidden sm:inline-block`}>
                   Tags
                 </Link>
               </li>
-              <li className="px-5 flex items-center">
-                <button onClick={() => setIsDarkMode(!darkMode)}>
-                  {darkMode ? <BsSun className={`text-white`} /> : <BsMoon />}
+              <li className="">
+                <button className="" onClick={() => setIsDarkMode(!darkMode)}>
+                  {darkMode ? <BsSun /> : <BsMoon />}
                 </button>
               </li>
-              <li className=" flex items-center sm:hidden">
-                <button className="" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                  {isMenuOpen ? (
-                    <TfiAlignRight
-                    className={`dark:text-white`}
-                    />
-                  ) : (
-                    <TfiAlignLeft
-                    className={`dark:text-white`}
-                    />
-                  )}
+              <li className="sm:hidden">
+                <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                  {isMenuOpen ? <TfiAlignRight /> : <TfiAlignLeft />}
                 </button>
               </li>
             </ul>
@@ -73,19 +65,19 @@ export const Header: React.FC<HeaderProps> = ({}) => {
         }`}
       >
         <nav className="">
-          <ul className="flex flex-col space-y-6 text-4xl pl-10 text-slate-600 font-semibold">
+          <ul className="flex flex-col space-y-6 text-4xl pl-10 text-slate-600 font-semibold dark:text-white">
             <li>
-              <Link to="/blog" className={`dark:text-white`} onClick={() => setIsMenuOpen(false)}>
+              <Link to="/blog" onClick={() => setIsMenuOpen(false)}>
                 Blog
               </Link>
             </li>
             <li>
-              <Link to="/about" className={`dark:text-white`} onClick={() => setIsMenuOpen(false)}>
+              <Link to="/about" onClick={() => setIsMenuOpen(false)}>
                 About
               </Link>
             </li>
             <li>
-              <Link to="/tags" className={`dark:text-white`} onClick={() => setIsMenuOpen(false)}>
+              <Link to="/tags" onClick={() => setIsMenuOpen(false)}>
                 Tags
               </Link>
             </li>

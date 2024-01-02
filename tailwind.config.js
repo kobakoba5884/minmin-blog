@@ -2,8 +2,12 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    screens: {
+      'xs': "375px",
+      'sm': '640px'
+    },
     extend: {},
   },
   plugins: [],
-  darkMode: 'class'
+  darkMode: "class",
 };
