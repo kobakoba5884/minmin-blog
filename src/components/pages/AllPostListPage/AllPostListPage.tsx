@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Layout } from "../../Layout";
 import { InputField } from "../../Elements/InputField";
 import { PostListItem } from "../../PostListItem";
-import { Post, useGetPostsAndCountQuery, useGetPostsWithSearchQuery } from "../../../__generated__/graphql";
+import {
+  Post,
+  useGetPostsAndCountQuery,
+  useGetPostsWithSearchQuery,
+} from "../../../__generated__/graphql";
 import { PageTitle } from "../../PageTitle";
 import { Pagination } from "../../Pagination";
 import { useNavigate, useParams } from "react-router-dom";
@@ -19,15 +23,15 @@ export const AllPostListPage: React.FC<AllPostListPageProps> = ({}) => {
 
   const { data, loading, error } = useGetPostsWithSearchQuery({
     variables: {
-      skip: (currentPageNumber - 1) * POSTS_PER_PAGE,
-      first: POSTS_PER_PAGE,
-      searchTerm: searchTerm
+      ...(searchTerm === "" && {
+        skip: (currentPageNumber - 1) * POSTS_PER_PAGE,
+        first: POSTS_PER_PAGE,
+      }),
+      searchTerm: searchTerm,
     },
   });
   const totalPosts = data?.postsConnection?.aggregate?.count as number;
   const totalPages = totalPosts ? Math.ceil(totalPosts / POSTS_PER_PAGE) : 1;
-
-  console.log(currentPageNumber);
 
   useEffect(() => {
     if (
@@ -47,7 +51,9 @@ export const AllPostListPage: React.FC<AllPostListPageProps> = ({}) => {
     <>
       <Layout>
         <div className="mx-5">
-          <div className={`p-7 border-b-2 border-b-slate-200 dark:border-b-emerald-200`}>
+          <div
+            className={`p-7 border-b-2 border-b-slate-200 dark:border-b-emerald-200`}
+          >
             <PageTitle pageTitle="All Posts" />
             <div>
               <InputField
@@ -63,7 +69,13 @@ export const AllPostListPage: React.FC<AllPostListPageProps> = ({}) => {
               postItem={postItem as Partial<Post>}
             />
           ))}
-          <Pagination currentPage={currentPageNumber} totalPages={totalPages} />
+          {searchTerm === "" && (
+            <Pagination
+              className={``}
+              currentPage={currentPageNumber}
+              totalPages={totalPages}
+            />
+          )}
         </div>
       </Layout>
     </>

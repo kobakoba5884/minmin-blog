@@ -4,16 +4,18 @@ import { useNavigate } from "react-router-dom";
 type PaginationProps = {
   currentPage: number;
   totalPages: number;
+  className?: string;
 };
 
 export const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   totalPages,
+  className = "",
 }) => {
   const navigate = useNavigate();
   return (
     <>
-      <div className={`p-7 flex justify-between`}>
+      <div className={`${className} p-7 flex justify-between`}>
         <button
           onClick={() => navigate(`/blog/page/${currentPage - 1}`)}
           disabled={currentPage <= 1}

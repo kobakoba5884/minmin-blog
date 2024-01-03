@@ -77,7 +77,7 @@ export const CustomMarkdown: React.FC<CustomMarkdownProps> = ({ content }) => {
                 </CopyToClipboard>
               </div>
             ) : (
-              <code {...rest} className={className}>
+              <code {...rest} className={`text-pink-400`}>
                 {children}
               </code>
             );
