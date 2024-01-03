@@ -1,50 +1,27 @@
-import { useState } from "react";
-import { Post, useGetPostsQuery } from "./__generated__/graphql";
-import { InputField } from "./components/Elements/InputField";
+import { Post, useGetPostsWithLimitQuery } from "./__generated__/graphql";
 import { Layout } from "./components/Layout";
 import { PostListItem } from "./components/PostListItem";
 import { getStyleForPath } from "./types/ColorStyles";
-import { useDarkModeContext } from "./contexts/DarkModeContext";
 import { PageTitle } from "./components/PageTitle";
+import { useLocation } from "react-router-dom";
 
 function App() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const { data, loading, error } = useGetPostsQuery();
+  const POSTS_PER_PAGE = 5;
+  const location = useLocation();
   const borderColor = getStyleForPath(location.pathname)["border"];
-  const { darkMode, setIsDarkMode } = useDarkModeContext();
-
-  const filteredPosts = searchTerm
-    ? data?.posts?.filter(
-        (post) =>
-          post?.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          post?.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          post?.tags.some((tag) =>
-            tag?.name.toLowerCase().includes(searchTerm.toLowerCase())
-          )
-      )
-    : data?.posts;
-
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value.trim();
-    setSearchTerm(value);
-  };
+  const { data, loading, error } = useGetPostsWithLimitQuery({
+    variables: { first: POSTS_PER_PAGE },
+  });
 
   return (
     <>
       <Layout>
-        <div className="mx-5">
-          <div className={`p-7 border-b-2 ${borderColor}`}>
-            <PageTitle pageTitle="All Posts" />
-            <div>
-              <InputField
-                placeholder="search"
-                value={searchTerm}
-                onChange={handleSearch}
-                className=""
-              />
-            </div>
-          </div>
-          {filteredPosts?.map((postItem) => (
+        <div className="mx-5 p-7">
+          <PageTitle
+            pageTitle="Latest"
+            className={`pb-7 border-b-2 border-b-slate-200 dark:border-b-emerald-200`}
+          />
+          {data?.posts?.map((postItem) => (
             <PostListItem
               key={postItem.id}
               postItem={postItem as Partial<Post>}

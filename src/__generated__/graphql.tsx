@@ -5204,6 +5204,30 @@ export type GetPostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetPostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, title: string, excerpt: string, slug: string, createdAt: any, tags: Array<{ __typename?: 'Tag', id: string, name: string, slug: string }> }> };
 
+export type GetPostsWithLimitQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type GetPostsWithLimitQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, title: string, excerpt: string, slug: string, createdAt: any, tags: Array<{ __typename?: 'Tag', id: string, name: string, slug: string }> }> };
+
+export type GetPostsAndCountQueryVariables = Exact<{
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type GetPostsAndCountQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, title: string, excerpt: string, slug: string, createdAt: any, tags: Array<{ __typename?: 'Tag', id: string, name: string, slug: string }> }>, postsConnection: { __typename?: 'PostConnection', aggregate: { __typename?: 'Aggregate', count: number } } };
+
+export type GetPostsWithSearchQueryVariables = Exact<{
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  searchTerm?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type GetPostsWithSearchQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, title: string, excerpt: string, slug: string, createdAt: any, tags: Array<{ __typename?: 'Tag', id: string, name: string, slug: string }> }>, postsConnection: { __typename?: 'PostConnection', aggregate: { __typename?: 'Aggregate', count: number } } };
+
 export type GetPostsByTagSlugQueryVariables = Exact<{
   slug: Scalars['String']['input'];
 }>;
@@ -5411,6 +5435,177 @@ export type GetPostsQueryHookResult = ReturnType<typeof useGetPostsQuery>;
 export type GetPostsLazyQueryHookResult = ReturnType<typeof useGetPostsLazyQuery>;
 export type GetPostsSuspenseQueryHookResult = ReturnType<typeof useGetPostsSuspenseQuery>;
 export type GetPostsQueryResult = Apollo.QueryResult<GetPostsQuery, GetPostsQueryVariables>;
+export const GetPostsWithLimitDocument = gql`
+    query GetPostsWithLimit($first: Int) {
+  posts(orderBy: createdAt_DESC, first: $first) {
+    id
+    title
+    excerpt
+    slug
+    createdAt
+    tags {
+      ... on Tag {
+        id
+        name
+        slug
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetPostsWithLimitQuery__
+ *
+ * To run a query within a React component, call `useGetPostsWithLimitQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostsWithLimitQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostsWithLimitQuery({
+ *   variables: {
+ *      first: // value for 'first'
+ *   },
+ * });
+ */
+export function useGetPostsWithLimitQuery(baseOptions?: Apollo.QueryHookOptions<GetPostsWithLimitQuery, GetPostsWithLimitQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostsWithLimitQuery, GetPostsWithLimitQueryVariables>(GetPostsWithLimitDocument, options);
+      }
+export function useGetPostsWithLimitLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostsWithLimitQuery, GetPostsWithLimitQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostsWithLimitQuery, GetPostsWithLimitQueryVariables>(GetPostsWithLimitDocument, options);
+        }
+export function useGetPostsWithLimitSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetPostsWithLimitQuery, GetPostsWithLimitQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetPostsWithLimitQuery, GetPostsWithLimitQueryVariables>(GetPostsWithLimitDocument, options);
+        }
+export type GetPostsWithLimitQueryHookResult = ReturnType<typeof useGetPostsWithLimitQuery>;
+export type GetPostsWithLimitLazyQueryHookResult = ReturnType<typeof useGetPostsWithLimitLazyQuery>;
+export type GetPostsWithLimitSuspenseQueryHookResult = ReturnType<typeof useGetPostsWithLimitSuspenseQuery>;
+export type GetPostsWithLimitQueryResult = Apollo.QueryResult<GetPostsWithLimitQuery, GetPostsWithLimitQueryVariables>;
+export const GetPostsAndCountDocument = gql`
+    query GetPostsAndCount($skip: Int, $first: Int) {
+  posts(orderBy: createdAt_DESC, skip: $skip, first: $first) {
+    id
+    title
+    excerpt
+    slug
+    createdAt
+    tags {
+      ... on Tag {
+        id
+        name
+        slug
+      }
+    }
+  }
+  postsConnection {
+    aggregate {
+      count
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetPostsAndCountQuery__
+ *
+ * To run a query within a React component, call `useGetPostsAndCountQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostsAndCountQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostsAndCountQuery({
+ *   variables: {
+ *      skip: // value for 'skip'
+ *      first: // value for 'first'
+ *   },
+ * });
+ */
+export function useGetPostsAndCountQuery(baseOptions?: Apollo.QueryHookOptions<GetPostsAndCountQuery, GetPostsAndCountQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostsAndCountQuery, GetPostsAndCountQueryVariables>(GetPostsAndCountDocument, options);
+      }
+export function useGetPostsAndCountLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostsAndCountQuery, GetPostsAndCountQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostsAndCountQuery, GetPostsAndCountQueryVariables>(GetPostsAndCountDocument, options);
+        }
+export function useGetPostsAndCountSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetPostsAndCountQuery, GetPostsAndCountQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetPostsAndCountQuery, GetPostsAndCountQueryVariables>(GetPostsAndCountDocument, options);
+        }
+export type GetPostsAndCountQueryHookResult = ReturnType<typeof useGetPostsAndCountQuery>;
+export type GetPostsAndCountLazyQueryHookResult = ReturnType<typeof useGetPostsAndCountLazyQuery>;
+export type GetPostsAndCountSuspenseQueryHookResult = ReturnType<typeof useGetPostsAndCountSuspenseQuery>;
+export type GetPostsAndCountQueryResult = Apollo.QueryResult<GetPostsAndCountQuery, GetPostsAndCountQueryVariables>;
+export const GetPostsWithSearchDocument = gql`
+    query GetPostsWithSearch($skip: Int, $first: Int, $searchTerm: String) {
+  posts(
+    orderBy: createdAt_DESC
+    skip: $skip
+    first: $first
+    where: {OR: [{title_contains: $searchTerm}, {excerpt_contains: $searchTerm}, {tags_some: {Tag: {name: $searchTerm}}}]}
+  ) {
+    id
+    title
+    excerpt
+    slug
+    createdAt
+    tags {
+      ... on Tag {
+        id
+        name
+        slug
+      }
+    }
+  }
+  postsConnection {
+    aggregate {
+      count
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetPostsWithSearchQuery__
+ *
+ * To run a query within a React component, call `useGetPostsWithSearchQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostsWithSearchQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostsWithSearchQuery({
+ *   variables: {
+ *      skip: // value for 'skip'
+ *      first: // value for 'first'
+ *      searchTerm: // value for 'searchTerm'
+ *   },
+ * });
+ */
+export function useGetPostsWithSearchQuery(baseOptions?: Apollo.QueryHookOptions<GetPostsWithSearchQuery, GetPostsWithSearchQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostsWithSearchQuery, GetPostsWithSearchQueryVariables>(GetPostsWithSearchDocument, options);
+      }
+export function useGetPostsWithSearchLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostsWithSearchQuery, GetPostsWithSearchQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostsWithSearchQuery, GetPostsWithSearchQueryVariables>(GetPostsWithSearchDocument, options);
+        }
+export function useGetPostsWithSearchSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetPostsWithSearchQuery, GetPostsWithSearchQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetPostsWithSearchQuery, GetPostsWithSearchQueryVariables>(GetPostsWithSearchDocument, options);
+        }
+export type GetPostsWithSearchQueryHookResult = ReturnType<typeof useGetPostsWithSearchQuery>;
+export type GetPostsWithSearchLazyQueryHookResult = ReturnType<typeof useGetPostsWithSearchLazyQuery>;
+export type GetPostsWithSearchSuspenseQueryHookResult = ReturnType<typeof useGetPostsWithSearchSuspenseQuery>;
+export type GetPostsWithSearchQueryResult = Apollo.QueryResult<GetPostsWithSearchQuery, GetPostsWithSearchQueryVariables>;
 export const GetPostsByTagSlugDocument = gql`
     query GetPostsByTagSlug($slug: String!) {
   posts(orderBy: createdAt_DESC, where: {tags_some: {Tag: {slug: $slug}}}) {

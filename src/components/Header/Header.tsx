@@ -17,7 +17,7 @@ export const Header: React.FC<HeaderProps> = ({}) => {
   return (
     <>
       <header
-        className={`p-6 z-50 text-xl ${borderColor} border-b-4 sm:border-none font-semibold dark:text-white`}
+        className={`p-6 z-50 text-xl border-b-slate-200 dark:border-b-emerald-200 border-b-4 sm:border-none font-semibold dark:text-white`}
       >
         <div className="flex justify-between items-center">
           <div>

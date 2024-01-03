@@ -6,8 +6,7 @@ import {
   Post,
   useGetPostsByTagSlugQuery,
 } from "../../../__generated__/graphql";
-import { useLocation, useNavigate } from "react-router-dom";
-import { getStyleForPath } from "../../../types/ColorStyles";
+import { useNavigate, useParams } from "react-router-dom";
 import { PageTitle } from "../../PageTitle";
 
 type PostListByTagPageProps = {};
@@ -15,11 +14,10 @@ type PostListByTagPageProps = {};
 export const PostListByTagPage: React.FC<PostListByTagPageProps> = ({}) => {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
-  const location = useLocation();
-  const borderColor = getStyleForPath(location.pathname)["border"];
+  const { slug } = useParams<{ slug: string }>();
   const { data, loading, error } = useGetPostsByTagSlugQuery({
     variables: {
-      slug: location.pathname.split("/").pop() || "",
+      slug: slug || "",
     },
   });
 
@@ -48,7 +46,9 @@ export const PostListByTagPage: React.FC<PostListByTagPageProps> = ({}) => {
     <>
       <Layout>
         <div className="mx-5">
-          <div className={`p-7 border-b-2 ${borderColor}`}>
+          <div
+            className={`p-7 border-b-2 border-b-slate-200 dark:border-b-emerald-200`}
+          >
             <PageTitle pageTitle={tagName as string} />
             <div>
               <InputField

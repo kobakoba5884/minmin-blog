@@ -1,28 +1,42 @@
-import React, { ReactNode, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Layout } from "../../Layout";
 import { InputField } from "../../Elements/InputField";
 import { PostListItem } from "../../PostListItem";
-import { Post, useGetPostsQuery } from "../../../__generated__/graphql";
-import { getStyleForPath } from "../../../types/ColorStyles";
+import { Post, useGetPostsAndCountQuery, useGetPostsWithSearchQuery } from "../../../__generated__/graphql";
 import { PageTitle } from "../../PageTitle";
+import { Pagination } from "../../Pagination";
+import { useNavigate, useParams } from "react-router-dom";
 
 type AllPostListPageProps = {};
 
 export const AllPostListPage: React.FC<AllPostListPageProps> = ({}) => {
+  const POSTS_PER_PAGE = 5;
   const [searchTerm, setSearchTerm] = useState("");
-  const { data, loading, error } = useGetPostsQuery();
-  const borderColor = getStyleForPath(location.pathname)["border"];
+  const { currentPage } = useParams<{ currentPage: string }>();
+  const navigate = useNavigate();
+  const currentPageNumber =
+    currentPage === undefined ? 1 : parseInt(currentPage as string);
 
-  const filteredPosts = searchTerm
-    ? data?.posts?.filter(
-        (post) =>
-          post?.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          post?.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          post?.tags.some((tag) =>
-            tag?.name.toLowerCase().includes(searchTerm.toLowerCase())
-          )
-      )
-    : data?.posts;
+  const { data, loading, error } = useGetPostsWithSearchQuery({
+    variables: {
+      skip: (currentPageNumber - 1) * POSTS_PER_PAGE,
+      first: POSTS_PER_PAGE,
+      searchTerm: searchTerm
+    },
+  });
+  const totalPosts = data?.postsConnection?.aggregate?.count as number;
+  const totalPages = totalPosts ? Math.ceil(totalPosts / POSTS_PER_PAGE) : 1;
+
+  console.log(currentPageNumber);
+
+  useEffect(() => {
+    if (
+      currentPageNumber <= 0 ||
+      (!loading && totalPages < currentPageNumber)
+    ) {
+      navigate("/404", { replace: true });
+    }
+  }, [loading, totalPages, currentPageNumber, error, navigate]);
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value.trim();
@@ -33,7 +47,7 @@ export const AllPostListPage: React.FC<AllPostListPageProps> = ({}) => {
     <>
       <Layout>
         <div className="mx-5">
-          <div className={`p-7 border-b-2 ${borderColor}`}>
+          <div className={`p-7 border-b-2 border-b-slate-200 dark:border-b-emerald-200`}>
             <PageTitle pageTitle="All Posts" />
             <div>
               <InputField
@@ -43,12 +57,13 @@ export const AllPostListPage: React.FC<AllPostListPageProps> = ({}) => {
               />
             </div>
           </div>
-          {filteredPosts?.map((postItem) => (
+          {data?.posts?.map((postItem) => (
             <PostListItem
               key={postItem.id}
               postItem={postItem as Partial<Post>}
             />
           ))}
+          <Pagination currentPage={currentPageNumber} totalPages={totalPages} />
         </div>
       </Layout>
     </>

@@ -30,6 +30,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Routes>
             <Route path="/" element={<App />} />
             <Route path="/blog" element={<AllPostListPage />} />
+            <Route path="/blog/page/:currentPage" element={<AllPostListPage />} />
             <Route path="/blog/:slug" element={<BlogPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/tags" element={<TagsPage />} />

@@ -16,6 +16,12 @@ export const colorStyles: ColorStyles = {
     text: "text-orange-300",
     textHover: "hover:text-orange-500",
   },
+  "/blog": {
+    border: "border-b-yellow-200",
+    shadow: "shadow-yellow-300",
+    text: "text-yellow-300",
+    textHover: "hover:text-yellow-500",
+  },
   "/about": {
     border: "border-b-blue-200",
     shadow: "shadow-blue-300",

@@ -3,7 +3,6 @@ import { Layout } from "../../Layout";
 import { Post, useGetPostBySlugQuery } from "../../../__generated__/graphql";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { formatDate } from "../../../utils/formatDate";
-import { getStyleForPath } from "../../../types/ColorStyles";
 import { AuthorCard } from "../../Cards/AuthorCard";
 import { TagsCard } from "../../Cards/TagsCard";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -17,9 +16,6 @@ type BlogPageProps = {};
 export const BlogPage: React.FC<BlogPageProps> = ({}) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const borderColor = getStyleForPath(location.pathname)["border"];
-  const textColor = getStyleForPath(location.pathname)["text"];
-  const textHoverColor = getStyleForPath(location.pathname)["textHover"];
   const { darkMode, setIsDarkMode } = useDarkModeContext();
 
   const { data, loading, error } = useGetPostBySlugQuery({
@@ -44,12 +40,12 @@ export const BlogPage: React.FC<BlogPageProps> = ({}) => {
             {formatDate(post?.createdAt)}
           </h2>
           <h1
-            className={`dark:text-white font-bold text-3xl text-center pb-3 border-b-2 ${borderColor}`}
+            className={`dark:text-white font-bold text-3xl text-center pb-3 border-b-2 border-b-slate-200 dark:border-b-emerald-200`}
           >
             {post?.title}
           </h1>
           <div className={`dark:text-white space-y-2 xl:grid xl:grid-cols-4`}>
-            <div className={`xl:col-span-3 p-5 xl:border-b-0 border-b-2 ${borderColor}`}>
+            <div className={`xl:col-span-3 p-5 xl:border-b-0 border-b-2 border-b-slate-200 dark:border-b-emerald-200`}>
               <Markdown
                 children={post?.content}
                 components={{
@@ -78,7 +74,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({}) => {
               <TagsCard postItem={post} />
               <Link
                 to="/blog"
-                className={`${textColor} ${textHoverColor} font-semibold`}
+                className={`text-emerald-400 font-bold hover:text-emerald-700`}
               >
                 &larr; Back to the blog
               </Link>

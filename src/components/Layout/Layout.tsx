@@ -13,7 +13,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <div className={`${darkMode ? "dark" : ""}`}>
-      <div className={`flex flex-col min-h-screen dark:bg-zinc-900 overflow-hidden xl:px-96`}>
+      <div className={`flex flex-col min-h-screen dark:bg-zinc-900 overflow-hidden 2xl:px-96`}>
         <Header />
         <main className={`flex-grow`}>{children}</main>
         <Footer />
