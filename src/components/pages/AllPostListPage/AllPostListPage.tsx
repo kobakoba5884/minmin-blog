@@ -4,7 +4,6 @@ import { InputField } from "../../Elements/InputField";
 import { PostListItem } from "../../PostListItem";
 import {
   Post,
-  useGetPostsAndCountQuery,
   useGetPostsWithSearchQuery,
 } from "../../../__generated__/graphql";
 import { PageTitle } from "../../PageTitle";
@@ -34,13 +33,16 @@ export const AllPostListPage: React.FC<AllPostListPageProps> = ({}) => {
   const totalPages = totalPosts ? Math.ceil(totalPosts / POSTS_PER_PAGE) : 1;
 
   useEffect(() => {
-    if (
+    if (currentPage === undefined) {
+      return;
+    } else if (
+      !/^[0-9]+$/.test(currentPage as string) ||
       currentPageNumber <= 0 ||
       (!loading && totalPages < currentPageNumber)
     ) {
       navigate("/404", { replace: true });
     }
-  }, [loading, totalPages, currentPageNumber, error, navigate]);
+  }, [loading, totalPages, currentPage, currentPageNumber, error, navigate]);
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value.trim();
