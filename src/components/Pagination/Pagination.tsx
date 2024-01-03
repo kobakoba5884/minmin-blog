@@ -19,7 +19,7 @@ export const Pagination: React.FC<PaginationProps> = ({
           disabled={currentPage <= 1}
           className="text-emerald-400 font-bold hover:text-emerald-700"
         >
-          Previous
+          <span className={currentPage <= 1 ? `opacity-0` : ``}>Previous</span>
         </button>
         <span className="dark:text-white">
           {currentPage} of {totalPages}
@@ -29,7 +29,7 @@ export const Pagination: React.FC<PaginationProps> = ({
           disabled={currentPage >= totalPages}
           className="text-emerald-400 font-bold hover:text-emerald-700"
         >
-          Next
+          <span className={currentPage >= totalPages ? `opacity-0` : ``}>Next</span>
         </button>
       </div>
     </>

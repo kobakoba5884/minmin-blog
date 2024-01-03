@@ -15,14 +15,14 @@ export const PostListItem: React.FC<PostListItemProps> = ({ postItem }) => {
       <article
         className={`space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0 border-b-2 border-b-slate-200 dark:border-b-emerald-200 p-4`}
       >
-        <div className="dark:text-white text-slate-500 xl:col-span-1">
+        <div className="dark:text-white text-lg text-slate-500 xl:col-span-1">
           {formatDate(postItem?.createdAt)}
         </div>
         <div className="xl:col-span-3">
           <h2 className="font-bold dark:text-white text-slate-700 text-2xl mb-4 cursor-pointer">
             <Link to={pathToPost}>{postItem?.title}</Link>
           </h2>
-          <div className="flex flex-wrap mb-5 dark:bg-zinc-900">
+          <div className="flex flex-wrap mb-5">
             {postItem?.tags?.map((tagItem) => (
               <Link
                 to={`/tags/${tagItem?.slug}`}

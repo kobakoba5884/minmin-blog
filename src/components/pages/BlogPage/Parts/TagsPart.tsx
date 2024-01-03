@@ -1,19 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Post } from "../../../__generated__/graphql";
+import { Post } from "../../../../__generated__/graphql";
 
-type TagsCardProps = {
+type TagsPartProps = {
   postItem: Post;
 };
 
-export const TagsCard: React.FC<TagsCardProps> = ({ postItem }) => {
+export const TagsPart: React.FC<TagsPartProps> = ({ postItem }) => {
   return (
     <>
       <div
-        className={`p-5 mb-4 border-b-2 border-b-slate-200 dark:border-b-emerald-200`}
+        className={`p-5 space-y-5 border-b-2 border-b-slate-200 dark:border-b-emerald-200`}
       >
-        <h2 className="dark:text-white">Tags</h2>
-        <div className="flex flex-wrap dark:bg-zinc-900">
+        <h2 className="dark:text-white text-xl font-semibold">Tags</h2>
+        <div className="flex flex-wrap">
           {postItem?.tags?.map((tagItem) => (
             <Link
               to={`/tags/${tagItem?.slug}`}

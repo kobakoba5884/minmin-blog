@@ -3,8 +3,8 @@ import { Layout } from "../../Layout";
 import { Post, useGetPostBySlugQuery } from "../../../__generated__/graphql";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { formatDate } from "../../../utils/formatDate";
-import { AuthorCard } from "../../Cards/AuthorCard";
-import { TagsCard } from "../../Cards/TagsCard";
+import { AuthorPart } from "./Parts/AuthorPart";
+import { TagsPart } from "./Parts/TagsPart";
 import { CustomMarkdown } from "../../CustomMarkdown";
 
 type BlogPageProps = {};
@@ -47,17 +47,19 @@ export const BlogPage: React.FC<BlogPageProps> = ({}) => {
             <div
               className={`xl:col-span-3 p-5 xl:border-b-0 border-b-2 border-b-slate-200 dark:border-b-emerald-200`}
             >
-              <CustomMarkdown content={post?.content}/>
+              <CustomMarkdown content={post?.content} />
             </div>
             <div className="xl:col-span-1">
-              <AuthorCard postItem={post} />
-              <TagsCard postItem={post} />
-              <Link
-                to="/blog"
-                className={`text-emerald-400 font-bold hover:text-emerald-700 p-3`}
-              >
-                &larr; Back to the blog
-              </Link>
+              <AuthorPart postItem={post} />
+              <TagsPart postItem={post} />
+              <div className="p-5">
+                <Link
+                  to="/blog"
+                  className={`text-emerald-400 font-bold hover:text-emerald-700`}
+                >
+                  &larr; Back to the blog
+                </Link>
+              </div>
             </div>
           </div>
         </article>
