@@ -5662,7 +5662,10 @@ export type GetPostsByTagSlugSuspenseQueryHookResult = ReturnType<typeof useGetP
 export type GetPostsByTagSlugQueryResult = Apollo.QueryResult<GetPostsByTagSlugQuery, GetPostsByTagSlugQueryVariables>;
 export const GetTagsDocument = gql`
     query GetTags {
-  tags(orderBy: name_ASC) {
+  tags(
+    where: {posts_some: {documentInStages_some: {stage: PUBLISHED}}}
+    orderBy: name_ASC
+  ) {
     id
     name
     slug

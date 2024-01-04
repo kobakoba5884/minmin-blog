@@ -1,14 +1,13 @@
 import React from "react";
 import { Layout } from "../../Layout";
 import { useGetTagsQuery } from "../../../__generated__/graphql";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { PageTitle } from "../../PageTitle";
 
 type TagsProps = {};
 
 export const TagsPage: React.FC<TagsProps> = ({}) => {
   const { data, loading, error } = useGetTagsQuery();
-  const location = useLocation();
 
   return (
     <>

@@ -1,5 +1,8 @@
 query GetTags {
-  tags(orderBy: name_ASC) {
+  tags(
+    where: {posts_some: {documentInStages_some: {stage: PUBLISHED}}}
+    orderBy: name_ASC
+  ) {
     id
     name
     slug
