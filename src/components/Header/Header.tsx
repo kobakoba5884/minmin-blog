@@ -1,18 +1,14 @@
 import React, { useState } from "react";
 import { BsMoon, BsSun } from "react-icons/bs";
 import { TfiAlignRight, TfiAlignLeft } from "react-icons/tfi";
-import { Link, useLocation } from "react-router-dom";
-import { getStyleForPath } from "../../types/ColorStyles";
+import { Link } from "react-router-dom";
 import { useDarkModeContext } from "../../contexts/DarkModeContext";
 
 type HeaderProps = {};
 
 export const Header: React.FC<HeaderProps> = ({}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const location = useLocation();
   const { darkMode, setIsDarkMode } = useDarkModeContext();
-
-  const borderColor = getStyleForPath(location.pathname)["border"];
 
   return (
     <>
@@ -21,10 +17,7 @@ export const Header: React.FC<HeaderProps> = ({}) => {
       >
         <div className="flex justify-between items-center">
           <div>
-            <Link
-              to="/"
-              className={`text-slate-700 font-bold hidden xs:inline-block dark:text-white`}
-            >
+            <Link to="/" className={`text-slate-700 font-bold dark:text-white`}>
               Minmin Blog
             </Link>
           </div>

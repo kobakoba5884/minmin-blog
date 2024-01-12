@@ -19,6 +19,7 @@ query GetPostBySlug($slug: String!) {
     }
     title
     content
+    language
   }
 }
 

@@ -30,7 +30,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({}) => {
   return (
     <>
       <Layout>
-        <article className="mx-5 py-5">
+        <article className="mx-5 py-5 overflow-hidden">
           <div className="space-y-5">
             <h2
               className={`dark:text-white text-slate-500 text-center text-xl`}

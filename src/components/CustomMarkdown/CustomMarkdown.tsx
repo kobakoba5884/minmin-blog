@@ -6,6 +6,7 @@ import { useDarkModeContext } from "../../contexts/DarkModeContext";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { FaRegCopy } from "react-icons/fa";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { VscFoldDown, VscFoldUp } from "react-icons/vsc";
 
 type CustomMarkdownProps = {
   content: string;
@@ -25,7 +26,7 @@ const customDarkStyle = {
   hljs: {
     ...dark.hljs,
     ...sharedStyle,
-    backgroundColor: "#282c34",
+    backgroundColor: "#27272a",
   },
 };
 
@@ -90,18 +91,43 @@ export const CustomMarkdown: React.FC<CustomMarkdownProps> = ({ content }) => {
             <h2 className="text-3xl py-5 font-bold" {...props} />
           ),
           h3: ({ node, ...props }) => (
-            <h3 className="text-3xl py-5 font-semibold border-b-2 border-b-slate-200 dark:border-b-emerald-200" {...props} />
+            <h3 className="text-3xl py-5 font-semibold" {...props} />
           ),
+          h4: ({ node, ...props }) => {
+            const [showThoughts, setShowThoughts] = useState(false);
+
+            return (
+              <small className="\">
+                <button
+                  onClick={() => setShowThoughts(!showThoughts)}
+                  className="text-xl text-center rounded-t-lg w-full bg-neutral-100 dark:bg-zinc-800 text-emerald-400 font-bold hover:text-emerald-700 py-1 px-5"
+                >
+                  {showThoughts ? (
+                    <VscFoldUp className="inline-block" />
+                  ) : (
+                    <VscFoldDown className="inline-block" />
+                  )}
+                </button>
+                <h4
+                  className={`text-lg p-5 overflow-hidden bg-neutral-100 dark:bg-zinc-800 rounded-b-lg ${showThoughts ? "block" : "hidden"}`}
+                  {...props}
+                />
+              </small>
+            );
+          },
           ul: ({ node, ...props }) => (
             <ul className="text-xl py-5" {...props} />
           ),
           li: ({ node, ...props }) => (
             <li className="list-disc py-2 ml-7" {...props} />
           ),
-          hr: ({ node, ...props }) => (
-            <hr className="" {...props} />
+          hr: ({ node, ...props }) => <hr className="" {...props} />,
+          a: ({ node, ...props }) => (
+            <a
+              className="text-emerald-400 font-bold hover:text-emerald-700"
+              {...props}
+            />
           ),
-          a: ({ node, ...props }) => <a className="text-emerald-400 font-bold hover:text-emerald-700" {...props} />,
         }}
       />
     </>

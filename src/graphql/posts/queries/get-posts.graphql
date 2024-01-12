@@ -5,6 +5,7 @@ query GetPosts {
     excerpt
     slug
     createdAt
+    language
     tags {
       ... on Tag {
         id
@@ -29,6 +30,7 @@ query GetPostsWithLimit($first: Int) {
         slug
       }
     }
+    language
   }
 }
 
@@ -46,6 +48,7 @@ query GetPostsAndCount($skip: Int, $first: Int) {
         slug
       }
     }
+    language
   }
   postsConnection {
     aggregate {
@@ -79,6 +82,7 @@ query GetPostsWithSearch($skip: Int, $first: Int, $searchTerm: String) {
         slug
       }
     }
+    language
   }
   postsConnection {
     aggregate {
@@ -104,6 +108,7 @@ query GetPostsByTagSlug($slug: String!) {
         slug
       }
     }
+    language
   }
   tag(where: { slug: $slug }) {
     name

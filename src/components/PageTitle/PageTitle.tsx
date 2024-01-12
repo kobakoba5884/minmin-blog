@@ -12,7 +12,7 @@ export const PageTitle: React.FC<PageTitleProps> = ({
   return (
     <>
       <h2
-        className={`${className} dark:text-white text-slate-700 font-bold text-4xl pb-7`}
+        className={`${className} dark:text-white text-slate-700 font-bold text-4xl pb-7 overflow-hidden`}
       >
         {pageTitle}
       </h2>

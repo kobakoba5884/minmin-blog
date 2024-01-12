@@ -1,14 +1,10 @@
 import { Post, useGetPostsWithLimitQuery } from "./__generated__/graphql";
 import { Layout } from "./components/Layout";
 import { PostListItem } from "./components/PostListItem";
-import { getStyleForPath } from "./types/ColorStyles";
 import { PageTitle } from "./components/PageTitle";
-import { useLocation } from "react-router-dom";
 
 function App() {
   const POSTS_PER_PAGE = 5;
-  const location = useLocation();
-  const borderColor = getStyleForPath(location.pathname)["border"];
   const { data, loading, error } = useGetPostsWithLimitQuery({
     variables: { first: POSTS_PER_PAGE },
   });

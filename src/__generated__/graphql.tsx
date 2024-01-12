@@ -2139,6 +2139,7 @@ export type Post = Entity & Node & {
   history: Array<Version>;
   /** The unique identifier */
   id: Scalars['ID']['output'];
+  language?: Maybe<Scalars['String']['output']>;
   /** The time the document was published. Null on documents in draft stage. */
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
   /** User that last published this document */
@@ -2238,6 +2239,7 @@ export type PostCreateInput = {
   content: Scalars['String']['input'];
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   excerpt: Scalars['String']['input'];
+  language?: InputMaybe<Scalars['String']['input']>;
   slug: Scalars['String']['input'];
   tags?: InputMaybe<PostTagsCreateManyInlineInput>;
   title: Scalars['String']['input'];
@@ -2354,6 +2356,25 @@ export type PostManyWhereInput = {
   id_not_starts_with?: InputMaybe<Scalars['ID']['input']>;
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']['input']>;
+  language?: InputMaybe<Scalars['String']['input']>;
+  /** All values containing the given string. */
+  language_contains?: InputMaybe<Scalars['String']['input']>;
+  /** All values ending with the given string. */
+  language_ends_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values that are contained in given list. */
+  language_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  language_not?: InputMaybe<Scalars['String']['input']>;
+  /** All values not containing the given string. */
+  language_not_contains?: InputMaybe<Scalars['String']['input']>;
+  /** All values not ending with the given string */
+  language_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values that are not contained in given list. */
+  language_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** All values not starting with the given string. */
+  language_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values starting with the given string. */
+  language_starts_with?: InputMaybe<Scalars['String']['input']>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -2442,6 +2463,8 @@ export enum PostOrderByInput {
   ExcerptDesc = 'excerpt_DESC',
   IdAsc = 'id_ASC',
   IdDesc = 'id_DESC',
+  LanguageAsc = 'language_ASC',
+  LanguageDesc = 'language_DESC',
   PublishedAtAsc = 'publishedAt_ASC',
   PublishedAtDesc = 'publishedAt_DESC',
   SlugAsc = 'slug_ASC',
@@ -2536,6 +2559,7 @@ export type PostUpdateInput = {
   author?: InputMaybe<AuthorUpdateOneInlineInput>;
   content?: InputMaybe<Scalars['String']['input']>;
   excerpt?: InputMaybe<Scalars['String']['input']>;
+  language?: InputMaybe<Scalars['String']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   tags?: InputMaybe<PostTagsUpdateManyInlineInput>;
   title?: InputMaybe<Scalars['String']['input']>;
@@ -2561,6 +2585,7 @@ export type PostUpdateManyInlineInput = {
 export type PostUpdateManyInput = {
   content?: InputMaybe<Scalars['String']['input']>;
   excerpt?: InputMaybe<Scalars['String']['input']>;
+  language?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -2700,6 +2725,25 @@ export type PostWhereInput = {
   id_not_starts_with?: InputMaybe<Scalars['ID']['input']>;
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']['input']>;
+  language?: InputMaybe<Scalars['String']['input']>;
+  /** All values containing the given string. */
+  language_contains?: InputMaybe<Scalars['String']['input']>;
+  /** All values ending with the given string. */
+  language_ends_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values that are contained in given list. */
+  language_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  language_not?: InputMaybe<Scalars['String']['input']>;
+  /** All values not containing the given string. */
+  language_not_contains?: InputMaybe<Scalars['String']['input']>;
+  /** All values not ending with the given string */
+  language_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values that are not contained in given list. */
+  language_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** All values not starting with the given string. */
+  language_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values starting with the given string. */
+  language_starts_with?: InputMaybe<Scalars['String']['input']>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -5197,19 +5241,19 @@ export type GetPostBySlugQueryVariables = Exact<{
 }>;
 
 
-export type GetPostBySlugQuery = { __typename?: 'Query', post?: { __typename?: 'Post', createdAt: any, id: string, slug: string, title: string, content: string, author?: { __typename?: 'Author', id: string, name: string, photo?: { __typename?: 'Asset', url: string } | null } | null, tags: Array<{ __typename?: 'Tag', id: string, name: string, slug: string }> } | null };
+export type GetPostBySlugQuery = { __typename?: 'Query', post?: { __typename?: 'Post', createdAt: any, id: string, slug: string, title: string, content: string, language?: string | null, author?: { __typename?: 'Author', id: string, name: string, photo?: { __typename?: 'Asset', url: string } | null } | null, tags: Array<{ __typename?: 'Tag', id: string, name: string, slug: string }> } | null };
 
 export type GetPostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetPostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, title: string, excerpt: string, slug: string, createdAt: any, tags: Array<{ __typename?: 'Tag', id: string, name: string, slug: string }> }> };
+export type GetPostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, title: string, excerpt: string, slug: string, createdAt: any, language?: string | null, tags: Array<{ __typename?: 'Tag', id: string, name: string, slug: string }> }> };
 
 export type GetPostsWithLimitQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
 
-export type GetPostsWithLimitQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, title: string, excerpt: string, slug: string, createdAt: any, tags: Array<{ __typename?: 'Tag', id: string, name: string, slug: string }> }> };
+export type GetPostsWithLimitQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, title: string, excerpt: string, slug: string, createdAt: any, language?: string | null, tags: Array<{ __typename?: 'Tag', id: string, name: string, slug: string }> }> };
 
 export type GetPostsAndCountQueryVariables = Exact<{
   skip?: InputMaybe<Scalars['Int']['input']>;
@@ -5217,7 +5261,7 @@ export type GetPostsAndCountQueryVariables = Exact<{
 }>;
 
 
-export type GetPostsAndCountQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, title: string, excerpt: string, slug: string, createdAt: any, tags: Array<{ __typename?: 'Tag', id: string, name: string, slug: string }> }>, postsConnection: { __typename?: 'PostConnection', aggregate: { __typename?: 'Aggregate', count: number } } };
+export type GetPostsAndCountQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, title: string, excerpt: string, slug: string, createdAt: any, language?: string | null, tags: Array<{ __typename?: 'Tag', id: string, name: string, slug: string }> }>, postsConnection: { __typename?: 'PostConnection', aggregate: { __typename?: 'Aggregate', count: number } } };
 
 export type GetPostsWithSearchQueryVariables = Exact<{
   skip?: InputMaybe<Scalars['Int']['input']>;
@@ -5226,14 +5270,14 @@ export type GetPostsWithSearchQueryVariables = Exact<{
 }>;
 
 
-export type GetPostsWithSearchQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, title: string, excerpt: string, slug: string, createdAt: any, tags: Array<{ __typename?: 'Tag', id: string, name: string, slug: string }> }>, postsConnection: { __typename?: 'PostConnection', aggregate: { __typename?: 'Aggregate', count: number } } };
+export type GetPostsWithSearchQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, title: string, excerpt: string, slug: string, createdAt: any, language?: string | null, tags: Array<{ __typename?: 'Tag', id: string, name: string, slug: string }> }>, postsConnection: { __typename?: 'PostConnection', aggregate: { __typename?: 'Aggregate', count: number } } };
 
 export type GetPostsByTagSlugQueryVariables = Exact<{
   slug: Scalars['String']['input'];
 }>;
 
 
-export type GetPostsByTagSlugQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, title: string, excerpt: string, slug: string, createdAt: any, tags: Array<{ __typename?: 'Tag', id: string, name: string, slug: string }> }>, tag?: { __typename?: 'Tag', name: string } | null };
+export type GetPostsByTagSlugQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, title: string, excerpt: string, slug: string, createdAt: any, language?: string | null, tags: Array<{ __typename?: 'Tag', id: string, name: string, slug: string }> }>, tag?: { __typename?: 'Tag', name: string } | null };
 
 export type GetTagsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -5349,6 +5393,7 @@ export const GetPostBySlugDocument = gql`
     }
     title
     content
+    language
   }
 }
     `;
@@ -5393,6 +5438,7 @@ export const GetPostsDocument = gql`
     excerpt
     slug
     createdAt
+    language
     tags {
       ... on Tag {
         id
@@ -5450,6 +5496,7 @@ export const GetPostsWithLimitDocument = gql`
         slug
       }
     }
+    language
   }
 }
     `;
@@ -5501,6 +5548,7 @@ export const GetPostsAndCountDocument = gql`
         slug
       }
     }
+    language
   }
   postsConnection {
     aggregate {
@@ -5563,6 +5611,7 @@ export const GetPostsWithSearchDocument = gql`
         slug
       }
     }
+    language
   }
   postsConnection {
     aggregate {
@@ -5621,6 +5670,7 @@ export const GetPostsByTagSlugDocument = gql`
         slug
       }
     }
+    language
   }
   tag(where: {slug: $slug}) {
     name
